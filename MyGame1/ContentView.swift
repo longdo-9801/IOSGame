@@ -145,60 +145,16 @@ struct ContentView: View {
     }
 /* Dice Comparision Functions*/
     /* Upper Group */
-    func aceCounting () {
+    func upperGroupCounting (modifier : Int) {
         var numberofDice = 0
         for value in allDiceValue {
-            if (value == 1) {
+            if (value == modifier) {
                 numberofDice += 1;
             }
         }
-        ScoreAce.value = numberofDice
+        ScoreAce.value = numberofDice * modifier
     }
-    func twosCounting () {
-        var numberofDice = 0
-        for value in allDiceValue {
-            if (value == 2) {
-                numberofDice += 2;
-            }
-        }
-        ScoreAce.value = numberofDice
-    }
-    func threesCounting () {
-        var numberofDice = 0
-        for value in allDiceValue {
-            if (value == 3) {
-                numberofDice += 3;
-            }
-        }
-        ScoreAce.value = numberofDice
-    }
-    func foursCounting () {
-        var numberofDice = 0
-        for value in allDiceValue {
-            if (value == 4) {
-                numberofDice += 4;
-            }
-        }
-        ScoreAce.value = numberofDice
-    }
-    func fivesCounting () {
-        var numberofDice = 0
-        for value in allDiceValue {
-            if (value == 5) {
-                numberofDice += 5;
-            }
-        }
-        ScoreAce.value = numberofDice
-    }
-    func sixesCounting () {
-        var numberofDice = 0
-        for value in allDiceValue {
-            if (value == 6) {
-                numberofDice += 6;
-            }
-        }
-        ScoreAce.value = numberofDice
-    }
+   
     
     
     
