@@ -34,7 +34,14 @@ struct ContentView: View {
     
     @State var allDiceValue : [Int] = []
     
-    @StateObject var ScoreAce = ScoreGroup(name: "Ace")
+    @StateObject var ScoreAce = ScoreGroup(name: "Aces")
+    @StateObject var ScoreTwo = ScoreGroup(name: "Twos")
+    @StateObject var ScoreThree = ScoreGroup(name: "Threes")
+    @StateObject var ScoreFour = ScoreGroup(name: "Fours")
+    @StateObject var ScoreFive = ScoreGroup(name: "Fives")
+    @StateObject var ScoreSix = ScoreGroup(name: "Sixes")
+    
+    
 /* DICE Manipulation Functions*/
     func rolldice(){
         if (!Dice1.isKept) {
@@ -136,10 +143,63 @@ struct ContentView: View {
             Dice5.isLocked = true
         }
     }
-///* Dice Comparision Functions*/
-//    func aceCounting () {
-//
-//    }
+/* Dice Comparision Functions*/
+    /* Upper Group */
+    func aceCounting () {
+        var numberofDice = 0
+        for value in allDiceValue {
+            if (value == 1) {
+                numberofDice += 1;
+            }
+        }
+        ScoreAce.value = numberofDice
+    }
+    func twosCounting () {
+        var numberofDice = 0
+        for value in allDiceValue {
+            if (value == 2) {
+                numberofDice += 2;
+            }
+        }
+        ScoreAce.value = numberofDice
+    }
+    func threesCounting () {
+        var numberofDice = 0
+        for value in allDiceValue {
+            if (value == 3) {
+                numberofDice += 3;
+            }
+        }
+        ScoreAce.value = numberofDice
+    }
+    func foursCounting () {
+        var numberofDice = 0
+        for value in allDiceValue {
+            if (value == 4) {
+                numberofDice += 4;
+            }
+        }
+        ScoreAce.value = numberofDice
+    }
+    func fivesCounting () {
+        var numberofDice = 0
+        for value in allDiceValue {
+            if (value == 5) {
+                numberofDice += 5;
+            }
+        }
+        ScoreAce.value = numberofDice
+    }
+    func sixesCounting () {
+        var numberofDice = 0
+        for value in allDiceValue {
+            if (value == 6) {
+                numberofDice += 6;
+            }
+        }
+        ScoreAce.value = numberofDice
+    }
+    
     
     
     

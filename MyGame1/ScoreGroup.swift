@@ -10,11 +10,13 @@ import Foundation
 class ScoreGroup : ObservableObject {
     @Published var ID : String
     @Published var value : Int
+    @Published var displayValue: Int
     @Published var isFilled : Bool
     
     init(name : String) {
         self.ID = name
         self.value = 0
+        self.displayValue = 0
         self.isFilled = false
     }
 }
