@@ -12,11 +12,14 @@ class ScoreGroup : ObservableObject {
     @Published var value : Int
     @Published var displayValue: Int
     @Published var isFilled : Bool
+    @Published var isSelectable : Bool
     
-    init(name : String) {
+    init(name : String, selectState : Bool) {
         self.ID = name
+        self.isSelectable = selectState
         self.value = 0
         self.displayValue = 0
         self.isFilled = false
+        
     }
 }

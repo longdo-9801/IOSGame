@@ -34,12 +34,21 @@ struct ContentView: View {
     
     @State var allDiceValue : [Int] = []
     
-    @StateObject var ScoreAce = ScoreGroup(name: "Aces")
-    @StateObject var ScoreTwo = ScoreGroup(name: "Twos")
-    @StateObject var ScoreThree = ScoreGroup(name: "Threes")
-    @StateObject var ScoreFour = ScoreGroup(name: "Fours")
-    @StateObject var ScoreFive = ScoreGroup(name: "Fives")
-    @StateObject var ScoreSix = ScoreGroup(name: "Sixes")
+    //Upper Score Group
+    @StateObject var ScoreAce = ScoreGroup(name: "Aces", selectState : false)
+    @StateObject var ScoreTwo = ScoreGroup(name: "Twos", selectState : false)
+    @StateObject var ScoreThree = ScoreGroup(name: "Threes", selectState : false)
+    @StateObject var ScoreFour = ScoreGroup(name: "Fours", selectState : false)
+    @StateObject var ScoreFive = ScoreGroup(name: "Fives", selectState : false)
+    @StateObject var ScoreSix = ScoreGroup(name: "Sixes", selectState : false)
+    //Lower Score Group
+    @StateObject var ScoreThreeKind = ScoreGroup(name: "Three of a Kind", selectState : false)
+    @StateObject var ScoreFourKind = ScoreGroup(name: "Four of a Kind", selectState : false)
+    @StateObject var ScoreFullHouse = ScoreGroup(name: "Full House", selectState : false)
+    @StateObject var ScoreSmallStraight, = ScoreGroup(name: "SmallStraight", selectState : false)
+    @StateObject var ScoreLargeStraight = ScoreGroup(name: "LargeStraight", selectState : false)
+    @StateObject var ScoreYahtzee = ScoreGroup(name: "Yahtzee", selectState : false)
+    @StateObject var ScoreChance = ScoreGroup(name: "Chance", selectState : true)
     
     
 /* DICE Manipulation Functions*/
@@ -144,18 +153,92 @@ struct ContentView: View {
         }
     }
 /* Dice Comparision Functions*/
-    /* Upper Group */
-    func upperGroupCounting (modifier : Int) {
+    func countDice(diceValue : Int) -> Int {}
         var numberofDice = 0
         for value in allDiceValue {
-            if (value == modifier) {
+            if (value == diceValue) {
                 numberofDice += 1;
             }
         }
-        ScoreAce.value = numberofDice * modifier
+        return numberofDice
     }
-   
+
+    /* Upper Group */
+    func upperGroupCounting (modifier : Int, scoreboard : ScoreGroup) {
+        noDice = countDice(modifier)
+        if (!scoreboard.isFilled) {
+            scoreboard.value = noDice * modifier
+            scoreboard.isFilled = true
+            scoreboard.isSelectable = false
+        }
+        
+    }
+
+    func upperGroupCheck() {
+        for value in allDiceValue {
+            switch  value {
+                case 1:
+                    if (!ScoreAce.isFilled)
+                    {
+	                    ScoreAce.isSelectable = true
+                    }  
+                case 2:
+                    if (!ScoreTwo.isFilled)
+                    {
+	                    ScoreTwo.isSelectable = true
+                    }
+                case 3:
+                    if (!ScoreThree.isFilled)
+                    {
+	                    ScoreThree.isSelectable = true
+                    }
+                case 4:
+                    if (!ScoreFour.isFilled)
+                    {
+	                    ScoreFour.isSelectable = true
+                    }
+                case 5:
+                    if (!ScoreFive.isFilled)
+                    {
+	                    ScoreFive.isSelectable = true
+                    }
+                case 6:
+                    if (!ScoreSix.isFilled)
+                    {
+	                    ScoreSix.isSelectable = true
+                    }
+            
+                default:
+                   print("Dice Value Error")
+            }   
+        }
+        
+    }
+    /* Lower Group */   
+    func LowerGroupCounting (modifier : Int, scoreboard : ScoreGroup) {
+        var numberofDice = countDice(modifier)
+        if (!scoreboard.isFilled) {
+            scoreboard.value = numberofDice * modifier
+            scoreboard.isFilled = true
+            scoreboard.isSelectable = false
+        }
+        
+    }
+
+    func checkDiceCombo (combolength : Int){
+        if (countDice(combolength))
+            if (noDice == 5 && !ScoreYahtzee.isFilled) {
+                ScoreYahtzee.isSelectable = true
+            }
+    }
     
+    func chanceCount () -> Int {
+        var sumvalue = 0
+        for value in allDiceValue {
+            sumvalue += value
+        }
+        return sumvalue
+    }
     
     
     
