@@ -48,83 +48,42 @@ struct DiceRollView: View {
     func rolldice(){
         if (!currentstate.Dice1.isKept) {
             currentstate.Dice1.value = Int.random(in: 1...6)
-            displayDice(myDice: currentstate.Dice1)
+            currentstate.Dice1.displayDice()
         }
         if (!currentstate.Dice2.isKept) {
             currentstate.Dice2.value = Int.random(in: 1...6)
-            displayDice(myDice: currentstate.Dice2)
+            currentstate.Dice2.displayDice()
         }
         if (!currentstate.Dice3.isKept) {
             currentstate.Dice3.value = Int.random(in: 1...6)
-            displayDice(myDice: currentstate.Dice3)
+            currentstate.Dice3.displayDice()
         }
         if (!currentstate.Dice4.isKept) {
             currentstate.Dice4.value = Int.random(in: 1...6)
-            displayDice(myDice: currentstate.Dice4)
+            currentstate.Dice4.displayDice()
         }
         if (!currentstate.Dice5.isKept) {
             currentstate.Dice5.value = Int.random(in: 1...6)
-            displayDice(myDice: currentstate.Dice5)
+            currentstate.Dice5.displayDice()
         }
     }
-    
-    func displayDice(myDice : Dice) {
-        //print("DEBUG CHECK IMAGE 1: " + myDice.image)
-        switch  myDice.value {
-        case 1:
-            myDice.image = "Dice1"
-        case 2:
-            myDice.image = "Dice2"
-        case 3:
-            myDice.image = "Dice3"
-        case 4:
-            myDice.image = "Dice4"
-        case 5:
-            myDice.image = "Dice5"
-        case 6:
-            myDice.image = "Dice6"
-            
-        default:
-           print("Dice Value Error")
-        }
-        //print("DEBUG CHECK IMAGE 2: " + myDice.image)
-    }
-    func displayDiceOff(myDice : Dice) {
-        //print("DEBUG CHECK IMAGE 1: " + myDice.image)
-        switch  myDice.value {
-        case 1:
-            myDice.image = "Dice1-Off"
-        case 2:
-            myDice.image = "Dice2-Off"
-        case 3:
-            myDice.image = "Dice3-Off"
-        case 4:
-            myDice.image = "Dice4-Off"
-        case 5:
-            myDice.image = "Dice5-Off"
-        case 6:
-            myDice.image = "Dice6-Off"
-            
-        default:
-           print("Dice Value Error")
-        }
-        //print("DEBUG CHECK IMAGE 2: " + myDice.image)
-    }
-    
+
+    // Basic function to change a dice status from free to kept. See func lockDice for the purpose of kept status.
+    //If dice is already lock, the function end. If not, the function will change the status from free to lock and vice versa.
     func chooseDice(myDice: Dice) {
         if (myDice.isLocked)
         {
             
         }
-        else if (myDice.isKept) {
-            displayDice(myDice: myDice)
-            myDice.isKept = false
-        } else {
-            displayDiceOff(myDice: myDice)
+        else if (!myDice.isKept) {
+            myDice.displayDiceOff()
             myDice.isKept = true
+        } else if (myDice.isKept){
+            myDice.displayDice()
+            myDice.isKept = false
         }
     }
-    
+    // Check if a dice is chosen as kept before rolling again, will lock the dice to prevent player from rolling the dice.
     func lockDice() {
         if (currentstate.Dice1.isKept) {
             currentstate.Dice1.isLocked = true
@@ -142,20 +101,34 @@ struct DiceRollView: View {
             currentstate.Dice5.isLocked = true
         }
     }
+    //If player already roll three times or locked all dice, automatically open the Score Sheet
+    func moveToScore() {
+        if (currentstate.isEndRoll
+            || ((currentstate.Dice1.isLocked)
+            && (currentstate.Dice2.isLocked)
+            && (currentstate.Dice3.isLocked)
+            && (currentstate.Dice4.isLocked)
+            && (currentstate.Dice5.isLocked))
+        ) {
+            isOpenScoreSheet = true
+        }
+        
+    }
+    
 
     
-    //VIEW BODY 
-    
+    //VIEW BODY
     var body: some View {
-
-
         ZStack {
             VStack {
                 HStack {
                     //Text(String(Dice1.value))
                     //print("Debug check 3: " + String(Dice1.value))
                     Spacer()
-                    Button {chooseDice(myDice: currentstate.Dice1)} label: {Image(currentstate.Dice1.image)}
+                    Button {chooseDice(myDice: currentstate.Dice1)
+                        print(currentstate.Dice1.image)
+                        print(currentstate.Dice1.isKept)
+                    } label: {Image(currentstate.Dice1.image)}
                     Button {chooseDice(myDice: currentstate.Dice2)} label: {Image(currentstate.Dice2.image)}
                     Button {chooseDice(myDice: currentstate.Dice3)} label: {Image(currentstate.Dice3.image)}
                     Button {chooseDice(myDice: currentstate.Dice4)} label: {Image(currentstate.Dice4.image)}
@@ -175,6 +148,10 @@ struct DiceRollView: View {
                                                                   currentstate.Dice3.value,
                                                                   currentstate.Dice4.value,
                                                                   currentstate.Dice5.value])
+                    currentstate.numberOfRoll += 1
+                    currentstate.checkEndRoll()
+                    let _ = print(currentstate.numberOfRoll)
+                    moveToScore()
                     //dump(allDiceValue)
                 } label: {
                     Text("Roll Dice")
@@ -185,7 +162,7 @@ struct DiceRollView: View {
                 } label: {
                     Text("Open Score Board")
                     
-                }.sheet(isPresented: $isOpenScoreSheet){
+                }.fullScreenCover(isPresented: $isOpenScoreSheet){
                     ScoreView(currentstate: currentstate, checkScoreSheet: $isOpenScoreSheet)
                 }.buttonStyle(.bordered)
         //        HStack {

@@ -19,6 +19,7 @@ class GameState : ObservableObject {
     @Published var isEndRoll : Bool
     @Published var isEndScore : Bool
     @Published var isEndGame: Bool
+    @Published var numberOfRoll: Int
     
     //Store Dice Value
     @Published var Dice1 : Dice
@@ -56,9 +57,11 @@ class GameState : ObservableObject {
         self.is2PlayerMode = false
         self.isP2 = false
         self.finalScore = 0
+        
         self.isEndRoll = false
         self.isEndScore = false
         self.isEndGame = false
+        self.numberOfRoll = 0
         
         self.ScoreAce = ScoreGroup(name: "Aces", selectState : false)
         self.ScoreTwo = ScoreGroup(name: "Twos", selectState : false)
@@ -70,8 +73,8 @@ class GameState : ObservableObject {
         self.ScoreThreeKind = ScoreGroup(name: "Three of a Kind", selectState : false)
         self.ScoreFourKind = ScoreGroup(name: "Four of a Kind", selectState : false)
         self.ScoreFullHouse = ScoreGroup(name: "Full House", selectState : false)
-        self.ScoreSmallStraight = ScoreGroup(name: "SmallStraight", selectState : false)
-        self.ScoreLargeStraight = ScoreGroup(name: "LargeStraight", selectState : false)
+        self.ScoreSmallStraight = ScoreGroup(name: "Small Straight", selectState : false)
+        self.ScoreLargeStraight = ScoreGroup(name: "Large Straight", selectState : false)
         self.ScoreYahtzee = ScoreGroup(name: "Yahtzee", selectState : false)
         self.ScoreChance = ScoreGroup(name: "Chance", selectState : true)
     }
@@ -89,7 +92,8 @@ class GameState : ObservableObject {
         self.is2PlayerMode = false
         self.isP2 = false
         self.finalScore = 0
-        
+    
+        self.numberOfRoll = 0
         self.isEndRoll = false
         self.isEndScore = false
         self.isEndGame = false
@@ -108,5 +112,13 @@ class GameState : ObservableObject {
         self.ScoreLargeStraight = ScoreGroup(name: "Large Straight", selectState : false)
         self.ScoreYahtzee = ScoreGroup(name: "Yahtzee", selectState : false)
         self.ScoreChance = ScoreGroup(name: "Chance", selectState : true)
+    }
+    
+    func checkEndRoll() {
+        if numberOfRoll == 3 {
+            self.isEndRoll = true
+        } else if numberOfRoll == 0 {
+            self.isEndRoll = false
+        }
     }
 }

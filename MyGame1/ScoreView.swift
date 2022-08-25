@@ -20,23 +20,23 @@ struct ScoreView: View {
             currentstate.ScoreAce.isSelectable = true
             currentstate.ScoreAce.currentValue = 1 * diceValueCount[0]
       }
-        if (!currentstate.ScoreTwo.isFilled1 && diceValueCount[2] > 0) {
+        if (!currentstate.ScoreTwo.isFilled1 && diceValueCount[1] > 0) {
             currentstate.ScoreTwo.isSelectable = true
             currentstate.ScoreTwo.currentValue = 2 * diceValueCount[1]
       }
-        if (!currentstate.ScoreThree.isFilled1 && diceValueCount[3] > 0) {
+        if (!currentstate.ScoreThree.isFilled1 && diceValueCount[2] > 0) {
             currentstate.ScoreThree.isSelectable = true
             currentstate.ScoreThree.currentValue = 3 * diceValueCount[2]
       }
-        if (!currentstate.ScoreFour.isFilled1 && diceValueCount[4] > 0) {
+        if (!currentstate.ScoreFour.isFilled1 && diceValueCount[3] > 0) {
             currentstate.ScoreFour.isSelectable = true
             currentstate.ScoreFour.currentValue = 4 * diceValueCount[3]
       }
-        if (!currentstate.ScoreFive.isFilled1 && diceValueCount[5] > 0) {
+        if (!currentstate.ScoreFive.isFilled1 && diceValueCount[4] > 0) {
             currentstate.ScoreFive.isSelectable = true
             currentstate.ScoreFive.currentValue = 5 * diceValueCount[4]
       }
-        if (!currentstate.ScoreSix.isFilled1 && diceValueCount[6] > 0) {
+        if (!currentstate.ScoreSix.isFilled1 && diceValueCount[5] > 0) {
             currentstate.ScoreSix.isSelectable = true
             currentstate.ScoreSix.currentValue = 6 * diceValueCount[5]
           
@@ -46,7 +46,7 @@ struct ScoreView: View {
     /* Lower Group */
     func checkDiceCombo() {
         var valueIndex: Int = 1
-        var diceValueCount : Array = currentstate.diceValueCount
+        let diceValueCount : Array = currentstate.diceValueCount
             for diceValue in diceValueCount {
                 if (diceValue == 5) {
                 if (!currentstate.ScoreYahtzee.isFilled1) {
@@ -91,7 +91,7 @@ struct ScoreView: View {
             }
         }
     func checkDiceSequence() {
-        var diceValueCount : Array = currentstate.diceValueCount
+        let diceValueCount : Array = currentstate.diceValueCount
         // Logic check explanation: As the sum of all value count is always 5 and there must be at least one of four sequential dice value
         //, if there are two values that appear twice, one of the remaining two value will be 0
         // Example : if there are 2x I, 2x II then either IV or III is equal to 0 which will stop the logic check
@@ -188,59 +188,69 @@ struct ScoreView: View {
 
         var body: some View {
             //Text("PLACEHOLDER")
-            VStack {
-                //Display current Dice
-                HStack {
-                    //Text(String(Dice1.value))
-                    //print("Debug check 3: " + String(Dice1.value))
-                    Spacer()
-                    Image(currentstate.Dice1.image)
-                    Image(currentstate.Dice2.image)
-                    Image(currentstate.Dice3.image)
-                    Image(currentstate.Dice4.image)
-                    Image(currentstate.Dice5.image)
-                    Spacer()
-                    //print("Debug check 4: " + String(Dice1.value))
-                }.onAppear{
-                    checkDiceCombo()
-                    checkDiceSequence()
-                    checkNoMove()
-                    //Upper Debug Check 1, 3 , 5
-                    let _ = print(currentstate.ScoreAce.isSelectable)
-                    let _ = print(currentstate.ScoreThree.isSelectable)
-                    let _ = print(currentstate.ScoreFive.isSelectable)
-                    //Lower Debug Check 3Kind, SS, Chance
-                    let _ = print(currentstate.ScoreChance.isSelectable)
-                    let _ = print(currentstate.ScoreThreeKind.isSelectable)
-                    let _ = print(currentstate.ScoreSmallStraight.isSelectable)
-                    //Debug value
-                    let _ = print(currentstate.ScoreAce.currentValue)
-                    let _ = print(currentstate.ScoreThree.currentValue)
-                    let _ = print(currentstate.ScoreFive.currentValue)
-                    let _ = print(currentstate.ScoreChance.currentValue)
-                    let _ = print(currentstate.ScoreThreeKind.currentValue)
-                    let _ = print(currentstate.ScoreSmallStraight.currentValue)
-                    let _ = dump(currentstate.diceValueCount)
-                    }
-                //Upper Group
-                VStack {
-                    ScoreBoxView(scoreBoard: currentstate.ScoreAce, isOpenScoreSheet: $checkScoreSheet, checkP2: currentstate.isP2)
-                    ScoreBoxView(scoreBoard: currentstate.ScoreTwo, isOpenScoreSheet: $checkScoreSheet, checkP2: currentstate.isP2)
-                    ScoreBoxView(scoreBoard: currentstate.ScoreThree, isOpenScoreSheet: $checkScoreSheet, checkP2: currentstate.isP2)
-                    ScoreBoxView(scoreBoard: currentstate.ScoreFour, isOpenScoreSheet: $checkScoreSheet, checkP2: currentstate.isP2)
-                    ScoreBoxView(scoreBoard: currentstate.ScoreFive, isOpenScoreSheet: $checkScoreSheet, checkP2: currentstate.isP2)
-                    ScoreBoxView(scoreBoard: currentstate.ScoreSix, isOpenScoreSheet: $checkScoreSheet, checkP2: currentstate.isP2)
-                }
-                VStack {
-                    ScoreBoxView(scoreBoard: currentstate.ScoreThreeKind, isOpenScoreSheet: $checkScoreSheet, checkP2: currentstate.isP2)
-                    ScoreBoxView(scoreBoard: currentstate.ScoreFourKind, isOpenScoreSheet: $checkScoreSheet, checkP2: currentstate.isP2)
-                    ScoreBoxView(scoreBoard: currentstate.ScoreFullHouse, isOpenScoreSheet: $checkScoreSheet, checkP2: currentstate.isP2)
-                    ScoreBoxView(scoreBoard: currentstate.ScoreSmallStraight, isOpenScoreSheet: $checkScoreSheet, checkP2: currentstate.isP2)
-                    ScoreBoxView(scoreBoard: currentstate.ScoreLargeStraight, isOpenScoreSheet: $checkScoreSheet, checkP2: currentstate.isP2)
-                    ScoreBoxView(scoreBoard: currentstate.ScoreYahtzee, isOpenScoreSheet: $checkScoreSheet, checkP2: currentstate.isP2)
-                    ScoreBoxView(scoreBoard: currentstate.ScoreChance, isOpenScoreSheet: $checkScoreSheet, checkP2: currentstate.isP2)
-                }
+            GeometryReader { geometry in
+
+                       ScrollView {
+                          ZStack {
+                               VStack {
+                                   //Display current Dice
+                                   HStack {
+                                       //Text(String(Dice1.value))
+                                       //print("Debug check 3: " + String(Dice1.value))
+                                       Spacer()
+                                       Image(currentstate.Dice1.image)
+                                       Image(currentstate.Dice2.image)
+                                       Image(currentstate.Dice3.image)
+                                       Image(currentstate.Dice4.image)
+                                       Image(currentstate.Dice5.image)
+                                       Spacer()
+                                       //print("Debug check 4: " + String(Dice1.value))
+                                   }.onAppear{
+                                       upperGroupCheck()
+                                       checkDiceCombo()
+                                       checkDiceSequence()
+                                       checkNoMove()
+                                       currentstate.Dice1.displayDice()
+                                       //Upper Debug Check 1, 3 , 5
+                                       let _ = print(currentstate.ScoreAce.isSelectable)
+                                       let _ = print(currentstate.ScoreThree.isSelectable)
+                                       let _ = print(currentstate.ScoreFive.isSelectable)
+                                       //Lower Debug Check 3Kind, SS, Chance
+                                       let _ = print(currentstate.ScoreChance.isSelectable)
+                                       let _ = print(currentstate.ScoreThreeKind.isSelectable)
+                                       let _ = print(currentstate.ScoreSmallStraight.isSelectable)
+                                       //Debug value
+                                       let _ = print(currentstate.ScoreAce.currentValue)
+                                       let _ = print(currentstate.ScoreThree.currentValue)
+                                       let _ = print(currentstate.ScoreFive.currentValue)
+                                       let _ = print(currentstate.ScoreChance.currentValue)
+                                       let _ = print(currentstate.ScoreThreeKind.currentValue)
+                                       let _ = print(currentstate.ScoreSmallStraight.currentValue)
+                                       let _ = dump(currentstate.diceValueCount)
+                                       }
+                                   //Upper Group
+                                   VStack {
+                                       ScoreBoxView(scoreBoard: currentstate.ScoreAce, isOpenScoreSheet: $checkScoreSheet, checkP2: currentstate.isP2)
+                                       ScoreBoxView(scoreBoard: currentstate.ScoreTwo, isOpenScoreSheet: $checkScoreSheet, checkP2: currentstate.isP2)
+                                       ScoreBoxView(scoreBoard: currentstate.ScoreThree, isOpenScoreSheet: $checkScoreSheet, checkP2: currentstate.isP2)
+                                       ScoreBoxView(scoreBoard: currentstate.ScoreFour, isOpenScoreSheet: $checkScoreSheet, checkP2: currentstate.isP2)
+                                       ScoreBoxView(scoreBoard: currentstate.ScoreFive, isOpenScoreSheet: $checkScoreSheet, checkP2: currentstate.isP2)
+                                       ScoreBoxView(scoreBoard: currentstate.ScoreSix, isOpenScoreSheet: $checkScoreSheet, checkP2: currentstate.isP2)
+                                   }
+                                   VStack {
+                                       ScoreBoxView(scoreBoard: currentstate.ScoreThreeKind, isOpenScoreSheet: $checkScoreSheet, checkP2: currentstate.isP2)
+                                       ScoreBoxView(scoreBoard: currentstate.ScoreFourKind, isOpenScoreSheet: $checkScoreSheet, checkP2: currentstate.isP2)
+                                       ScoreBoxView(scoreBoard: currentstate.ScoreFullHouse, isOpenScoreSheet: $checkScoreSheet, checkP2: currentstate.isP2)
+                                       ScoreBoxView(scoreBoard: currentstate.ScoreSmallStraight, isOpenScoreSheet: $checkScoreSheet, checkP2: currentstate.isP2)
+                                       ScoreBoxView(scoreBoard: currentstate.ScoreLargeStraight, isOpenScoreSheet: $checkScoreSheet, checkP2: currentstate.isP2)
+                                       ScoreBoxView(scoreBoard: currentstate.ScoreYahtzee, isOpenScoreSheet: $checkScoreSheet, checkP2: currentstate.isP2)
+                                       ScoreBoxView(scoreBoard: currentstate.ScoreChance, isOpenScoreSheet: $checkScoreSheet, checkP2: currentstate.isP2)
+                                   }
+                               }
+                           }
+                       }
             }
+            
         }
 }
 struct ScoreView_Previews: PreviewProvider {
