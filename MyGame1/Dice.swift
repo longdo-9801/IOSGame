@@ -8,15 +8,17 @@
 import Foundation
 import CoreImage
 
-class Dice {
-    init(id: Int, value:Int, image:String, isKept: Bool) {
+class Dice : ObservableObject {
+    init(id: Int, value:Int, image:String) {
         self.ID = id
         self.value = value
         self.image = image
-        self.isKept = isKept
+        self.isKept = false
+        self.isLocked = false
     }
-    var ID : Int
-    var value : Int
-    var image : String
-    var isKept : Bool
+    @Published var ID : Int
+    @Published var value : Int
+    @Published var image : String
+    @Published var isKept : Bool
+    @Published var isLocked: Bool
 }
