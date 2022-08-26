@@ -21,6 +21,9 @@
 		3D9B4CD828B89B1C00A6300A /* Dice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9B4CD628B89B1C00A6300A /* Dice.swift */; };
 		3D9B4CDA28B89B5C00A6300A /* MatchRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9B4CD928B89B5C00A6300A /* MatchRecord.swift */; };
 		3D9B4CDE28B8BFA700A6300A /* InstructionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9B4CDD28B8BFA700A6300A /* InstructionView.swift */; };
+		3D9B4CE028B8C48300A6300A /* ScoreTotalBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9B4CDF28B8C48300A6300A /* ScoreTotalBox.swift */; };
+		3D9B4CE228B8DBA600A6300A /* SaveManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9B4CE128B8DBA600A6300A /* SaveManager.swift */; };
+		3D9B4CE428B8E31800A6300A /* EndGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9B4CE328B8E31800A6300A /* EndGameView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +42,9 @@
 		3D9B4CD628B89B1C00A6300A /* Dice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dice.swift; sourceTree = "<group>"; };
 		3D9B4CD928B89B5C00A6300A /* MatchRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchRecord.swift; sourceTree = "<group>"; };
 		3D9B4CDD28B8BFA700A6300A /* InstructionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionView.swift; sourceTree = "<group>"; };
+		3D9B4CDF28B8C48300A6300A /* ScoreTotalBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreTotalBox.swift; sourceTree = "<group>"; };
+		3D9B4CE128B8DBA600A6300A /* SaveManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveManager.swift; sourceTree = "<group>"; };
+		3D9B4CE328B8E31800A6300A /* EndGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndGameView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,10 +84,12 @@
 				3D9B4CDD28B8BFA700A6300A /* InstructionView.swift */,
 				3D6833EE28B74DB8008D4D66 /* HighScoreView.swift */,
 				3D6833F028B74DC6008D4D66 /* MatchView.swift */,
+				3D9B4CE328B8E31800A6300A /* EndGameView.swift */,
 				3D6833E928B74C32008D4D66 /* ViewComponent */,
 				3D6833DE28B743E5008D4D66 /* Model */,
 				3D404BBD28AE0C2500900177 /* Assets.xcassets */,
 				3D404BBF28AE0C2500900177 /* Preview Content */,
+				3D9B4CE128B8DBA600A6300A /* SaveManager.swift */,
 			);
 			path = MyGame1;
 			sourceTree = "<group>";
@@ -109,6 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				3D6833EA28B74C55008D4D66 /* ScoreBox.swift */,
+				3D9B4CDF28B8C48300A6300A /* ScoreTotalBox.swift */,
 			);
 			path = ViewComponent;
 			sourceTree = "<group>";
@@ -187,11 +196,14 @@
 				3D9B4CD728B89B1C00A6300A /* ScoreGroup.swift in Sources */,
 				3D6833F328B750A8008D4D66 /* GameData.swift in Sources */,
 				3D6833ED28B74DAA008D4D66 /* MainMenuView.swift in Sources */,
+				3D9B4CE428B8E31800A6300A /* EndGameView.swift in Sources */,
 				3D404BBC28AE0C2400900177 /* DiceRollView.swift in Sources */,
+				3D9B4CE028B8C48300A6300A /* ScoreTotalBox.swift in Sources */,
 				3D9B4CDE28B8BFA700A6300A /* InstructionView.swift in Sources */,
 				3D6833EB28B74C55008D4D66 /* ScoreBox.swift in Sources */,
 				3D6833F128B74DC6008D4D66 /* MatchView.swift in Sources */,
 				3D7B338628B771D1006E9553 /* ScoreView.swift in Sources */,
+				3D9B4CE228B8DBA600A6300A /* SaveManager.swift in Sources */,
 				3D6833EF28B74DB8008D4D66 /* HighScoreView.swift in Sources */,
 				3D9B4CD828B89B1C00A6300A /* Dice.swift in Sources */,
 				3D404BBA28AE0C2400900177 /* MyGame1App.swift in Sources */,

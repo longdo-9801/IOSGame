@@ -5,4 +5,17 @@
 //  Created by Long, Do Ha Minh on 25/08/2022.
 //
 
-import Foundation
+import SwiftUI
+
+struct HSView : View {
+    @State var recordList : Array<MatchRecord>
+    var body: some View {
+        Text("PLACEHOLDER@")
+    }
+}
+
+//struct HSView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        HSView()
+//    }
+//}

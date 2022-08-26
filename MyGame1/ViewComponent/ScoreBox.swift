@@ -35,15 +35,28 @@ struct ScoreBoxView : View {
             Text(scoreBoard.ID).frame(alignment: .leading)
             Spacer(minLength: 100)
             Text(displayPoint).foregroundColor(textColor).frame(alignment: .trailing).onAppear {
-                if (!scoreBoard.isSelectable && !scoreBoard.isFilled1) {
-                    self.displayPoint = ""
-                }else if (!scoreBoard.isFilled1){
-                    self.displayPoint = String(scoreBoard.currentValue)
-                    self.textColor = .gray
+                if (GameState.isP2) {
+                    if (!scoreBoard.isSelectable && !scoreBoard.isFilled2) {
+                        self.displayPoint = ""
+                    } else if (scoreBoard.isSelectable && !scoreBoard.isFilled2){
+                        self.displayPoint = String(scoreBoard.currentValue)
+                        self.textColor = .gray
+                    } else {
+                        self.displayPoint = String(scoreBoard.finalValue2)
+                        self.textColor = .black
+                    }
                 } else {
-                    self.displayPoint = String(scoreBoard.finalValue1)
-                    self.textColor = .black
+                    if (!scoreBoard.isSelectable && !scoreBoard.isFilled1) {
+                        self.displayPoint = ""
+                    } else if (!scoreBoard.isFilled1){
+                        self.displayPoint = String(scoreBoard.currentValue)
+                        self.textColor = .gray
+                    } else {
+                        self.displayPoint = String(scoreBoard.finalValue1)
+                        self.textColor = .black
+                    }
                 }
+                
             }
             Spacer().frame(width: 30)
             Button {
@@ -88,7 +101,7 @@ struct ScoreBoxView : View {
     }
 }
 
-struct ListElementViewPreview: PreviewProvider {
+struct ScoreBoxViewPreview: PreviewProvider {
     @State static var debugBool1 = true
     @State static var debugBool2 = false
     static var previews: some View {

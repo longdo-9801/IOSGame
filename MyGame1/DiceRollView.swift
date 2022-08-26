@@ -10,9 +10,10 @@ import SwiftUI
 
 struct DiceRollView: View {
     
-    @StateObject var currentstate = GameState()
+    @StateObject var currentstate : GameState
     @State var isOpenScoreSheet = false
     @State var isOpenInstruction = false
+    @State var isEndGame = false
     
        
     
@@ -115,6 +116,11 @@ struct DiceRollView: View {
         }
         
     }
+    func toggleEndGame() {
+        if currentstate.isEndGame {
+            isEndGame = true
+        }
+    }
 
     
     //DEBUG FUNCTION
@@ -130,9 +136,14 @@ struct DiceRollView: View {
     var body: some View {
         ZStack {
             VStack {
-                HStack {
+                Spacer()
+                VStack {
+                    Text("Current Turn: \(currentstate.turnNummber)")
                     Text("Remaining Roll(s): \(currentstate.numberOfRoll)")
+                }.fullScreenCover(isPresented: $currentstate.isEndGame) {
+                    
                 }
+                Spacer()
                 HStack {
                     //Text(String(Dice1.value))
                     //print("Debug check 3: " + String(Dice1.value))
@@ -166,13 +177,12 @@ struct DiceRollView: View {
                     moveToScore()
                     //dump(allDiceValue)
                 } label: {
-                    Text("Roll Dice")
+                    Text("Roll Dice 🎲")
                 }.buttonStyle(.bordered)
                 Button {
                     isOpenScoreSheet.toggle()
-
                 } label: {
-                    Text("Open Score Board")
+                    Text("Open Score Board ✏️")
                     
                 }.fullScreenCover(isPresented: $isOpenScoreSheet){
                     ScoreView(currentstate: currentstate, checkScoreSheet: $isOpenScoreSheet).onAppear(){
@@ -183,11 +193,12 @@ struct DiceRollView: View {
                         }
                     }
                 }.buttonStyle(.bordered)
+                Spacer()
                 Button {
                     isOpenInstruction.toggle()
 
                 } label: {
-                    Text("Open Instruction")
+                    Text("Open Instruction 📘")
                     
                 }.sheet(isPresented: $isOpenInstruction){
                     InstructionView()
@@ -204,7 +215,8 @@ struct DiceRollView: View {
 struct DiceRollView_Previews: PreviewProvider {
     @State static var debugBool = false
     static var previews: some View {
-        DiceRollView()
+        DiceRollView(currentstate: GameState(isPlayer2: false))
+            .preferredColorScheme(.light)
             .previewInterfaceOrientation(.portrait)
     }
 }

@@ -73,6 +73,6 @@ class Dice : ObservableObject {
         self.value = 0
         self.isKept = false
         self.isLocked = false
-        self.image = "DiceDefautl"
+        self.image = "DiceDefaut"
     }
 }

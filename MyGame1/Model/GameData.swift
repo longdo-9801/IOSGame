@@ -13,7 +13,6 @@ class GameState : ObservableObject {
     @Published var turnNummber : Int
     @Published var is2PlayerMode : Bool
     @Published var isP2: Bool
-    @Published var finalScore : Int
     @Published var isEndRoll : Bool
     @Published var isEndGame: Bool
     @Published var numberOfRoll: Int
@@ -37,6 +36,7 @@ class GameState : ObservableObject {
     @Published var ScoreFour : ScoreGroup
     @Published var ScoreFive : ScoreGroup
     @Published var ScoreSix : ScoreGroup
+
     //Lower Score Group
     @Published var ScoreThreeKind : ScoreGroup
     @Published var ScoreFourKind : ScoreGroup
@@ -46,7 +46,15 @@ class GameState : ObservableObject {
     @Published var ScoreYahtzee : ScoreGroup
     @Published var ScoreChance : ScoreGroup
     
-    init() {
+    //Score vars
+    @Published var finalScoreP1 : Int
+    @Published var upperScoreP1 : Int
+    @Published var lowerScoreP1 : Int
+    @Published var finalScoreP2 : Int
+    @Published var upperScoreP2 : Int
+    @Published var lowerScoreP2 : Int
+    
+    init(isPlayer2 : Bool) {
         self.Dice1 = Dice(id: 1, value: 0, image: "DiceDefault")
         self.Dice2 = Dice(id: 2, value: 0, image: "DiceDefault")
         self.Dice3 = Dice(id: 3, value: 0, image: "DiceDefault")
@@ -55,10 +63,9 @@ class GameState : ObservableObject {
         
         self.allDiceValue = Array(repeating: 0, count: 5)
         self.diceValueCount = Array(repeating: 0, count: 6)
-        self.turnNummber = 0
-        self.is2PlayerMode = false
+        self.turnNummber = 1
+        self.is2PlayerMode = isPlayer2
         self.isP2 = false
-        self.finalScore = 0
         self.cheatVar = 0
         
         self.isStart = true
@@ -81,6 +88,13 @@ class GameState : ObservableObject {
         self.ScoreLargeStraight = ScoreGroup(name: "Large Straight", selectState : false)
         self.ScoreYahtzee = ScoreGroup(name: "Yahtzee", selectState : false)
         self.ScoreChance = ScoreGroup(name: "Chance", selectState : true)
+        
+        self.finalScoreP1 = 0
+        self.upperScoreP1 = 0
+        self.lowerScoreP1 = 0
+        self.finalScoreP2 = 0
+        self.upperScoreP2 = 0
+        self.lowerScoreP2 = 0
     }
     
     init(diceface1: String, diceface2: String, diceface3 : String, diceface4: String, diceface5: String, diceValue: Array<Int>) {
@@ -92,10 +106,9 @@ class GameState : ObservableObject {
         
         self.allDiceValue = Array(repeating: 0, count: 5)
         self.diceValueCount = diceValue
-        self.turnNummber = 0
+        self.turnNummber = 1
         self.is2PlayerMode = false
         self.isP2 = false
-        self.finalScore = 0
         self.cheatVar = 0
     
         self.numberOfRoll = 0
@@ -118,6 +131,13 @@ class GameState : ObservableObject {
         self.ScoreLargeStraight = ScoreGroup(name: "Large Straight", selectState : false)
         self.ScoreYahtzee = ScoreGroup(name: "Yahtzee", selectState : false)
         self.ScoreChance = ScoreGroup(name: "Chance", selectState : true)
+        
+        self.finalScoreP1 = 0
+        self.upperScoreP1 = 0
+        self.lowerScoreP1 = 0
+        self.finalScoreP2 = 0
+        self.upperScoreP2 = 0
+        self.lowerScoreP2 = 0
     }
     
     func checkEndRoll() {
@@ -148,6 +168,66 @@ class GameState : ObservableObject {
         Dice4.resetDice()
         Dice5.resetDice()
         resetDiceCounter()
+        if is2PlayerMode {
+            if isP2 {
+                isP2 = false
+            } else {
+                isP2 = true
+            }
+        }
         
     }
+    
+    func UpperCal() {
+        if is2PlayerMode {
+            upperScoreP2 = ScoreAce.finalValue2
+                          + ScoreFour.finalValue2
+                          + ScoreTwo.finalValue2
+                          + ScoreThree.finalValue2
+                          + ScoreFive.finalValue2
+                          + ScoreSix.finalValue2
+        }
+        upperScoreP1 = ScoreAce.finalValue1
+                    + ScoreTwo.finalValue1
+                    + ScoreThree.finalValue1
+                    + ScoreFour.finalValue1
+                    + ScoreFive.finalValue1
+                    + ScoreSix.finalValue1
+    }
+    
+    func LowerCal(){
+        if is2PlayerMode {
+            lowerScoreP2 = ScoreYahtzee.finalValue2
+                + ScoreThreeKind.finalValue2
+                + ScoreFourKind.finalValue2
+                + ScoreFullHouse.finalValue2
+                + ScoreSmallStraight.finalValue2
+                + ScoreLargeStraight.finalValue2
+                + ScoreChance.finalValue2
+        }
+        lowerScoreP1 = ScoreYahtzee.finalValue1
+            + ScoreThreeKind.finalValue1
+            + ScoreFourKind.finalValue1
+            + ScoreFullHouse.finalValue1
+            + ScoreSmallStraight.finalValue1
+            + ScoreLargeStraight.finalValue1
+            + ScoreChance.finalValue1
+
+    }
+    
+    func finalCal() {
+        if is2PlayerMode {
+            finalScoreP2 = upperScoreP2 + lowerScoreP2
+            if upperScoreP2 >= 63 {
+                finalScoreP2 += 35
+            }
+        }
+        finalScoreP1 = upperScoreP1 + lowerScoreP1
+        if upperScoreP1 >= 63 {
+            finalScoreP1 += 35
+        }
+        
+    }
+    
+    
 }
