@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Dice1-export.png",
+      "filename" : "Dice1-Off.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Dice1-export@2x.png",
+      "filename" : "Dice1-Off@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Dice1-export@3x.png",
+      "filename" : "Dice1-Off@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

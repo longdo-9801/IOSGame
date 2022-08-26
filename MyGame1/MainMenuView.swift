@@ -18,7 +18,7 @@ struct MainMenuView: View {
     var body: some View {
         ZStack {
             if isGameView {
-                DiceRollView(currentstate: GameState(isPlayer2: false), isOpenScoreSheet: false)
+                    DiceRollView(currentstate: GameState(isPlayer2: false), isOpenScoreSheet: false)
             } else if isGameView2P {
                     DiceRollView(currentstate: GameState(isPlayer2: true), isOpenScoreSheet: false)
             } else

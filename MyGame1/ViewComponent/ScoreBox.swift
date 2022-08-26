@@ -9,9 +9,9 @@ import SwiftUI
 
 struct ScoreBoxView : View {
     @State var displayPoint = ""
-    @ObservedObject var scoreBoard : ScoreGroup
+    @Binding var scoreBoard : ScoreGroup
     @Binding var isOpenScoreSheet : Bool
-    @ObservedObject var GameState : GameState
+    @Binding var GameState : GameState
     @ State var textColor : Color = .gray
 
     func inputScore(scoreGroup : ScoreGroup) {
@@ -104,11 +104,12 @@ struct ScoreBoxView : View {
 struct ScoreBoxViewPreview: PreviewProvider {
     @State static var debugBool1 = true
     @State static var debugBool2 = false
+    @State static var board = ScoreGroup(name: "DEBUG", selectState: true)
     static var previews: some View {
         ZStack {
             Color.white
             ScoreBoxView(displayPoint: "50",
-                         scoreBoard: ScoreGroup(name: "Four of a Kind", selectState : false),
+                         scoreBoard: $board,
                          isOpenScoreSheet: $debugBool1,GameState: GameState(diceface1: "Dice1",
                                                                             diceface2: "Dice2",
                                                                             diceface3: "Dice3",

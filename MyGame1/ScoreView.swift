@@ -326,6 +326,7 @@ struct ScoreView: View {
                                    Button {
                                        if(!currentstate.isEndRoll) {
                                            checkScoreSheet = false
+                                           currentstate.resetDiceCounter()
                                        }
                                    } label: {
                                        Text("Close Score Sheet")
@@ -359,24 +360,24 @@ struct ScoreView: View {
                                    //Upper Group
                                    VStack {
                                        Text("Upper Point Group")
-                                       ScoreBoxView(scoreBoard: currentstate.ScoreAce, isOpenScoreSheet: $checkScoreSheet,GameState: currentstate)
-                                       ScoreBoxView(scoreBoard: currentstate.ScoreTwo, isOpenScoreSheet: $checkScoreSheet, GameState: currentstate)
-                                       ScoreBoxView(scoreBoard: currentstate.ScoreThree, isOpenScoreSheet: $checkScoreSheet, GameState: currentstate)
-                                       ScoreBoxView(scoreBoard: currentstate.ScoreFour, isOpenScoreSheet: $checkScoreSheet, GameState: currentstate)
-                                       ScoreBoxView(scoreBoard: currentstate.ScoreFive, isOpenScoreSheet: $checkScoreSheet, GameState: currentstate)
-                                       ScoreBoxView(scoreBoard: currentstate.ScoreSix, isOpenScoreSheet: $checkScoreSheet, GameState: currentstate)
+                                       ScoreBoxView(scoreBoard: $currentstate.ScoreAce, isOpenScoreSheet: $checkScoreSheet,GameState: currentstate)
+                                       ScoreBoxView(scoreBoard: $currentstate.ScoreTwo, isOpenScoreSheet: $checkScoreSheet, GameState: currentstate)
+                                       ScoreBoxView(scoreBoard: $currentstate.ScoreThree, isOpenScoreSheet: $checkScoreSheet, GameState: currentstate)
+                                       ScoreBoxView(scoreBoard: $currentstate.ScoreFour, isOpenScoreSheet: $checkScoreSheet, GameState: currentstate)
+                                       ScoreBoxView(scoreBoard: $currentstate.ScoreFive, isOpenScoreSheet: $checkScoreSheet, GameState: currentstate)
+                                       ScoreBoxView(scoreBoard: $currentstate.ScoreSix, isOpenScoreSheet: $checkScoreSheet, GameState: currentstate)
                                        ScoreTotalBoxView(GameState: currentstate, isUpper: true)
                                    }
                                    Divider()
                                    VStack {
                                        Text("Lower Point Group")
-                                       ScoreBoxView(scoreBoard: currentstate.ScoreThreeKind, isOpenScoreSheet: $checkScoreSheet, GameState: currentstate)
-                                       ScoreBoxView(scoreBoard: currentstate.ScoreFourKind, isOpenScoreSheet: $checkScoreSheet, GameState: currentstate)
-                                       ScoreBoxView(scoreBoard: currentstate.ScoreFullHouse, isOpenScoreSheet: $checkScoreSheet, GameState: currentstate)
-                                       ScoreBoxView(scoreBoard: currentstate.ScoreSmallStraight, isOpenScoreSheet: $checkScoreSheet, GameState: currentstate)
-                                       ScoreBoxView(scoreBoard: currentstate.ScoreLargeStraight, isOpenScoreSheet: $checkScoreSheet, GameState: currentstate)
-                                       ScoreBoxView(scoreBoard: currentstate.ScoreYahtzee, isOpenScoreSheet: $checkScoreSheet, GameState: currentstate)
-                                       ScoreBoxView(scoreBoard: currentstate.ScoreChance, isOpenScoreSheet: $checkScoreSheet, GameState: currentstate)
+                                       ScoreBoxView(scoreBoard: $currentstate.ScoreThreeKind, isOpenScoreSheet: $checkScoreSheet, GameState: currentstate)
+                                       ScoreBoxView(scoreBoard: $currentstate.ScoreFourKind, isOpenScoreSheet: $checkScoreSheet, GameState: currentstate)
+                                       ScoreBoxView(scoreBoard: $currentstate.ScoreFullHouse, isOpenScoreSheet: $checkScoreSheet, GameState: currentstate)
+                                       ScoreBoxView(scoreBoard: $currentstate.ScoreSmallStraight, isOpenScoreSheet: $checkScoreSheet, GameState: currentstate)
+                                       ScoreBoxView(scoreBoard: $currentstate.ScoreLargeStraight, isOpenScoreSheet: $checkScoreSheet, GameState: currentstate)
+                                       ScoreBoxView(scoreBoard: $currentstate.ScoreYahtzee, isOpenScoreSheet: $checkScoreSheet, GameState: currentstate)
+                                       ScoreBoxView(scoreBoard: $currentstate.ScoreChance, isOpenScoreSheet: $checkScoreSheet, GameState: currentstate)
                                        ScoreTotalBoxView(GameState: currentstate, isUpper: false)
                                    }
                                }
