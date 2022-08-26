@@ -15,7 +15,7 @@ struct ScoreView: View {
         
     /* Upper Group */
     func upperGroupCheck() {
-        let diceValueCount : Array = currentstate.diceValueCount
+        var diceValueCount : Array = currentstate.diceValueCount
         if (!currentstate.ScoreAce.isFilled1 && diceValueCount[0] > 0) {
             currentstate.ScoreAce.isSelectable = true
             currentstate.ScoreAce.currentValue = 1 * diceValueCount[0]
@@ -46,7 +46,7 @@ struct ScoreView: View {
     /* Lower Group */
     func checkDiceCombo() {
         var valueIndex: Int = 1
-        let diceValueCount : Array = currentstate.diceValueCount
+        var diceValueCount : Array = currentstate.diceValueCount
             for diceValue in diceValueCount {
                 if (diceValue == 5) {
                 if (!currentstate.ScoreYahtzee.isFilled1) {
@@ -91,7 +91,7 @@ struct ScoreView: View {
             }
         }
     func checkDiceSequence() {
-        let diceValueCount : Array = currentstate.diceValueCount
+        var diceValueCount : Array = currentstate.diceValueCount
         // Logic check explanation: As the sum of all value count is always 5 and there must be at least one of four sequential dice value
         //, if there are two values that appear twice, one of the remaining two value will be 0
         // Example : if there are 2x I, 2x II then either IV or III is equal to 0 which will stop the logic check
@@ -193,6 +193,13 @@ struct ScoreView: View {
                        ScrollView {
                           ZStack {
                                VStack {
+                                   Button {
+                                       if(!currentstate.isEndRoll) {
+                                           checkScoreSheet = false
+                                       }
+                                   } label: {
+                                       Text("Close Score Sheet")
+                                   }
                                    //Display current Dice
                                    HStack {
                                        //Text(String(Dice1.value))
@@ -211,40 +218,30 @@ struct ScoreView: View {
                                        checkDiceSequence()
                                        checkNoMove()
                                        currentstate.Dice1.displayDice()
-                                       //Upper Debug Check 1, 3 , 5
-                                       let _ = print(currentstate.ScoreAce.isSelectable)
-                                       let _ = print(currentstate.ScoreThree.isSelectable)
-                                       let _ = print(currentstate.ScoreFive.isSelectable)
-                                       //Lower Debug Check 3Kind, SS, Chance
-                                       let _ = print(currentstate.ScoreChance.isSelectable)
-                                       let _ = print(currentstate.ScoreThreeKind.isSelectable)
-                                       let _ = print(currentstate.ScoreSmallStraight.isSelectable)
-                                       //Debug value
-                                       let _ = print(currentstate.ScoreAce.currentValue)
-                                       let _ = print(currentstate.ScoreThree.currentValue)
-                                       let _ = print(currentstate.ScoreFive.currentValue)
-                                       let _ = print(currentstate.ScoreChance.currentValue)
-                                       let _ = print(currentstate.ScoreThreeKind.currentValue)
-                                       let _ = print(currentstate.ScoreSmallStraight.currentValue)
+                                       currentstate.Dice2.displayDice()
+                                       currentstate.Dice3.displayDice()
+                                       currentstate.Dice4.displayDice()
+                                       currentstate.Dice5.displayDice()
+                                       //DEBUG Dice Value Count
                                        let _ = dump(currentstate.diceValueCount)
                                        }
                                    //Upper Group
                                    VStack {
-                                       ScoreBoxView(scoreBoard: currentstate.ScoreAce, isOpenScoreSheet: $checkScoreSheet, checkP2: currentstate.isP2)
-                                       ScoreBoxView(scoreBoard: currentstate.ScoreTwo, isOpenScoreSheet: $checkScoreSheet, checkP2: currentstate.isP2)
-                                       ScoreBoxView(scoreBoard: currentstate.ScoreThree, isOpenScoreSheet: $checkScoreSheet, checkP2: currentstate.isP2)
-                                       ScoreBoxView(scoreBoard: currentstate.ScoreFour, isOpenScoreSheet: $checkScoreSheet, checkP2: currentstate.isP2)
-                                       ScoreBoxView(scoreBoard: currentstate.ScoreFive, isOpenScoreSheet: $checkScoreSheet, checkP2: currentstate.isP2)
-                                       ScoreBoxView(scoreBoard: currentstate.ScoreSix, isOpenScoreSheet: $checkScoreSheet, checkP2: currentstate.isP2)
+                                       ScoreBoxView(scoreBoard: currentstate.ScoreAce, isOpenScoreSheet: $checkScoreSheet,GameState: currentstate)
+                                       ScoreBoxView(scoreBoard: currentstate.ScoreTwo, isOpenScoreSheet: $checkScoreSheet, GameState: currentstate)
+                                       ScoreBoxView(scoreBoard: currentstate.ScoreThree, isOpenScoreSheet: $checkScoreSheet, GameState: currentstate)
+                                       ScoreBoxView(scoreBoard: currentstate.ScoreFour, isOpenScoreSheet: $checkScoreSheet, GameState: currentstate)
+                                       ScoreBoxView(scoreBoard: currentstate.ScoreFive, isOpenScoreSheet: $checkScoreSheet, GameState: currentstate)
+                                       ScoreBoxView(scoreBoard: currentstate.ScoreSix, isOpenScoreSheet: $checkScoreSheet, GameState: currentstate)
                                    }
                                    VStack {
-                                       ScoreBoxView(scoreBoard: currentstate.ScoreThreeKind, isOpenScoreSheet: $checkScoreSheet, checkP2: currentstate.isP2)
-                                       ScoreBoxView(scoreBoard: currentstate.ScoreFourKind, isOpenScoreSheet: $checkScoreSheet, checkP2: currentstate.isP2)
-                                       ScoreBoxView(scoreBoard: currentstate.ScoreFullHouse, isOpenScoreSheet: $checkScoreSheet, checkP2: currentstate.isP2)
-                                       ScoreBoxView(scoreBoard: currentstate.ScoreSmallStraight, isOpenScoreSheet: $checkScoreSheet, checkP2: currentstate.isP2)
-                                       ScoreBoxView(scoreBoard: currentstate.ScoreLargeStraight, isOpenScoreSheet: $checkScoreSheet, checkP2: currentstate.isP2)
-                                       ScoreBoxView(scoreBoard: currentstate.ScoreYahtzee, isOpenScoreSheet: $checkScoreSheet, checkP2: currentstate.isP2)
-                                       ScoreBoxView(scoreBoard: currentstate.ScoreChance, isOpenScoreSheet: $checkScoreSheet, checkP2: currentstate.isP2)
+                                       ScoreBoxView(scoreBoard: currentstate.ScoreThreeKind, isOpenScoreSheet: $checkScoreSheet, GameState: currentstate)
+                                       ScoreBoxView(scoreBoard: currentstate.ScoreFourKind, isOpenScoreSheet: $checkScoreSheet, GameState: currentstate)
+                                       ScoreBoxView(scoreBoard: currentstate.ScoreFullHouse, isOpenScoreSheet: $checkScoreSheet, GameState: currentstate)
+                                       ScoreBoxView(scoreBoard: currentstate.ScoreSmallStraight, isOpenScoreSheet: $checkScoreSheet, GameState: currentstate)
+                                       ScoreBoxView(scoreBoard: currentstate.ScoreLargeStraight, isOpenScoreSheet: $checkScoreSheet, GameState: currentstate)
+                                       ScoreBoxView(scoreBoard: currentstate.ScoreYahtzee, isOpenScoreSheet: $checkScoreSheet, GameState: currentstate)
+                                       ScoreBoxView(scoreBoard: currentstate.ScoreChance, isOpenScoreSheet: $checkScoreSheet, GameState: currentstate)
                                    }
                                }
                            }

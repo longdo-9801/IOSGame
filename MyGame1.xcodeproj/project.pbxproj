@@ -11,14 +11,16 @@
 		3D404BBC28AE0C2400900177 /* DiceRollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D404BBB28AE0C2400900177 /* DiceRollView.swift */; };
 		3D404BBE28AE0C2500900177 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D404BBD28AE0C2500900177 /* Assets.xcassets */; };
 		3D404BC128AE0C2500900177 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D404BC028AE0C2500900177 /* Preview Assets.xcassets */; };
-		3D6833E528B744A0008D4D66 /* Dice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6833E328B744A0008D4D66 /* Dice.swift */; };
-		3D6833E628B744A0008D4D66 /* ScoreGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6833E428B744A0008D4D66 /* ScoreGroup.swift */; };
 		3D6833EB28B74C55008D4D66 /* ScoreBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6833EA28B74C55008D4D66 /* ScoreBox.swift */; };
 		3D6833ED28B74DAA008D4D66 /* MainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6833EC28B74DAA008D4D66 /* MainMenuView.swift */; };
 		3D6833EF28B74DB8008D4D66 /* HighScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6833EE28B74DB8008D4D66 /* HighScoreView.swift */; };
 		3D6833F128B74DC6008D4D66 /* MatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6833F028B74DC6008D4D66 /* MatchView.swift */; };
 		3D6833F328B750A8008D4D66 /* GameData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6833F228B750A8008D4D66 /* GameData.swift */; };
 		3D7B338628B771D1006E9553 /* ScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7B338528B771D1006E9553 /* ScoreView.swift */; };
+		3D9B4CD728B89B1C00A6300A /* ScoreGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9B4CD528B89B1C00A6300A /* ScoreGroup.swift */; };
+		3D9B4CD828B89B1C00A6300A /* Dice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9B4CD628B89B1C00A6300A /* Dice.swift */; };
+		3D9B4CDA28B89B5C00A6300A /* MatchRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9B4CD928B89B5C00A6300A /* MatchRecord.swift */; };
+		3D9B4CDE28B8BFA700A6300A /* InstructionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9B4CDD28B8BFA700A6300A /* InstructionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,14 +29,16 @@
 		3D404BBB28AE0C2400900177 /* DiceRollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiceRollView.swift; sourceTree = "<group>"; };
 		3D404BBD28AE0C2500900177 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3D404BC028AE0C2500900177 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		3D6833E328B744A0008D4D66 /* Dice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Dice.swift; path = MyGame1/Dice.swift; sourceTree = SOURCE_ROOT; };
-		3D6833E428B744A0008D4D66 /* ScoreGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScoreGroup.swift; path = MyGame1/ScoreGroup.swift; sourceTree = SOURCE_ROOT; };
 		3D6833EA28B74C55008D4D66 /* ScoreBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreBox.swift; sourceTree = "<group>"; };
 		3D6833EC28B74DAA008D4D66 /* MainMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuView.swift; sourceTree = "<group>"; };
 		3D6833EE28B74DB8008D4D66 /* HighScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighScoreView.swift; sourceTree = "<group>"; };
 		3D6833F028B74DC6008D4D66 /* MatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchView.swift; sourceTree = "<group>"; };
 		3D6833F228B750A8008D4D66 /* GameData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameData.swift; sourceTree = "<group>"; };
 		3D7B338528B771D1006E9553 /* ScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreView.swift; sourceTree = "<group>"; };
+		3D9B4CD528B89B1C00A6300A /* ScoreGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreGroup.swift; sourceTree = "<group>"; };
+		3D9B4CD628B89B1C00A6300A /* Dice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dice.swift; sourceTree = "<group>"; };
+		3D9B4CD928B89B5C00A6300A /* MatchRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchRecord.swift; sourceTree = "<group>"; };
+		3D9B4CDD28B8BFA700A6300A /* InstructionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +75,7 @@
 				3D6833EC28B74DAA008D4D66 /* MainMenuView.swift */,
 				3D404BBB28AE0C2400900177 /* DiceRollView.swift */,
 				3D7B338528B771D1006E9553 /* ScoreView.swift */,
+				3D9B4CDD28B8BFA700A6300A /* InstructionView.swift */,
 				3D6833EE28B74DB8008D4D66 /* HighScoreView.swift */,
 				3D6833F028B74DC6008D4D66 /* MatchView.swift */,
 				3D6833E928B74C32008D4D66 /* ViewComponent */,
@@ -92,9 +97,10 @@
 		3D6833DE28B743E5008D4D66 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				3D6833E328B744A0008D4D66 /* Dice.swift */,
-				3D6833E428B744A0008D4D66 /* ScoreGroup.swift */,
+				3D9B4CD628B89B1C00A6300A /* Dice.swift */,
+				3D9B4CD528B89B1C00A6300A /* ScoreGroup.swift */,
 				3D6833F228B750A8008D4D66 /* GameData.swift */,
+				3D9B4CD928B89B5C00A6300A /* MatchRecord.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -177,15 +183,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3D6833E628B744A0008D4D66 /* ScoreGroup.swift in Sources */,
+				3D9B4CDA28B89B5C00A6300A /* MatchRecord.swift in Sources */,
+				3D9B4CD728B89B1C00A6300A /* ScoreGroup.swift in Sources */,
 				3D6833F328B750A8008D4D66 /* GameData.swift in Sources */,
 				3D6833ED28B74DAA008D4D66 /* MainMenuView.swift in Sources */,
 				3D404BBC28AE0C2400900177 /* DiceRollView.swift in Sources */,
+				3D9B4CDE28B8BFA700A6300A /* InstructionView.swift in Sources */,
 				3D6833EB28B74C55008D4D66 /* ScoreBox.swift in Sources */,
 				3D6833F128B74DC6008D4D66 /* MatchView.swift in Sources */,
-				3D6833E528B744A0008D4D66 /* Dice.swift in Sources */,
 				3D7B338628B771D1006E9553 /* ScoreView.swift in Sources */,
 				3D6833EF28B74DB8008D4D66 /* HighScoreView.swift in Sources */,
+				3D9B4CD828B89B1C00A6300A /* Dice.swift in Sources */,
 				3D404BBA28AE0C2400900177 /* MyGame1App.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

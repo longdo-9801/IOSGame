@@ -40,7 +40,8 @@ class Dice : ObservableObject {
             self.image = "Dice6"
             
         default:
-           print("Dice Value Error")
+            self.image = "DiceDefault"
+            print("Dice Value Error")
         }
         //print("DEBUG CHECK IMAGE 2: " + myDice.image)
     }
@@ -62,8 +63,16 @@ class Dice : ObservableObject {
             self.image = "Dice6-Off"
             
         default:
-           print("Dice Value Error")
+            self.image = "DiceDefault"
+            print("Dice Value Error")
         }
         //print("DEBUG CHECK IMAGE 2: " + myDice.image)
+    }
+    
+    func resetDice() {
+        self.value = 0
+        self.isKept = false
+        self.isLocked = false
+        self.image = "DiceDefautl"
     }
 }

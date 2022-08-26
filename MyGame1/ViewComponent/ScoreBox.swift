@@ -11,11 +11,11 @@ struct ScoreBoxView : View {
     @State var displayPoint = ""
     @ObservedObject var scoreBoard : ScoreGroup
     @Binding var isOpenScoreSheet : Bool
-    var checkP2 : Bool
+    @ObservedObject var GameState : GameState
     @ State var textColor : Color = .gray
 
-    func selectScoreGroup(scoreGroup : ScoreGroup) {
-        if (checkP2) {
+    func inputScore(scoreGroup : ScoreGroup) {
+        if (GameState.isP2) {
             scoreGroup.finalValue2 = scoreGroup.currentValue
             displayPoint = String(scoreGroup.finalValue2)
             scoreGroup.isSelectable = false
@@ -34,26 +34,53 @@ struct ScoreBoxView : View {
                 //Spacer()
             Text(scoreBoard.ID).frame(alignment: .leading)
             Spacer(minLength: 100)
-            Text(displayPoint).foregroundColor(textColor).frame(alignment: .trailing)
-            Spacer().frame(width: 30)
-            Button {
-                selectScoreGroup(scoreGroup: scoreBoard)
-                self.displayPoint = String(scoreBoard.finalValue1)
-                self.textColor = .black
-            } label: {
-                Text("Commit")
-            }.frame(alignment: .trailing).buttonStyle(.bordered)
-            //Spacer()
-        }.onAppear {
-            if (!scoreBoard.isFilled1){
-                self.displayPoint = String(scoreBoard.currentValue)
-            } else {
-                func setText2(){
+            Text(displayPoint).foregroundColor(textColor).frame(alignment: .trailing).onAppear {
+                if (!scoreBoard.isSelectable && !scoreBoard.isFilled1) {
+                    self.displayPoint = ""
+                }else if (!scoreBoard.isFilled1){
+                    self.displayPoint = String(scoreBoard.currentValue)
+                    self.textColor = .gray
+                } else {
                     self.displayPoint = String(scoreBoard.finalValue1)
                     self.textColor = .black
                 }
             }
-            
+            Spacer().frame(width: 30)
+            Button {
+                if (GameState.isP2) {
+                    if (!scoreBoard.isFilled2 && isOpenScoreSheet && !GameState.isStart) {
+                        inputScore(scoreGroup: scoreBoard)
+                        self.displayPoint = String(scoreBoard.finalValue2)
+                        self.textColor = .black
+                        isOpenScoreSheet = false
+                        GameState.resetState()
+                        GameState.resetDiceCounter()
+                        scoreBoard.isSelectable = false
+                        GameState.turnNummber += 1
+                    }
+                } else {
+                    if (!scoreBoard.isFilled1 && isOpenScoreSheet && !GameState.isStart) {
+                        inputScore(scoreGroup: scoreBoard)
+                        self.displayPoint = String(scoreBoard.finalValue1)
+                        self.textColor = .black
+                        GameState.resetState()
+                        GameState.resetDiceCounter()
+                        isOpenScoreSheet = false
+                        scoreBoard.isSelectable = false
+                        if (!GameState.is2PlayerMode) {
+                            GameState.turnNummber += 1
+                        } else {
+                            GameState.isP2 = true
+                        }
+                        
+                    }
+                }
+                
+                
+            } label: {
+                Text("Commit")
+            }.frame(alignment: .trailing).buttonStyle(.bordered)
+            //Spacer()
         }
         
         
@@ -62,13 +89,19 @@ struct ScoreBoxView : View {
 }
 
 struct ListElementViewPreview: PreviewProvider {
-    @State static var debugBool = true
+    @State static var debugBool1 = true
+    @State static var debugBool2 = false
     static var previews: some View {
         ZStack {
             Color.white
             ScoreBoxView(displayPoint: "50",
                          scoreBoard: ScoreGroup(name: "Four of a Kind", selectState : false),
-                         isOpenScoreSheet: $debugBool, checkP2: false, textColor: .gray)
+                         isOpenScoreSheet: $debugBool1,GameState: GameState(diceface1: "Dice1",
+                                                                            diceface2: "Dice2",
+                                                                            diceface3: "Dice3",
+                                                                            diceface4: "Dice4",
+                                                                            diceface5: "Dice5",
+                                                                            diceValue: [1,1,1,1,1,0]), textColor: .gray)
         }
         
     }

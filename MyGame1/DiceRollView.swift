@@ -39,13 +39,12 @@ struct DiceRollView: View {
         }
     
     }
-
-    func resetCounter() {
-        currentstate.diceValueCount = [0,0,0,0,0,0]
-        }
     
 /* DICE Manipulation Functions*/
     func rolldice(){
+        if currentstate.isStart {
+            currentstate.isStart = false
+        }
         if (!currentstate.Dice1.isKept) {
             currentstate.Dice1.value = Int.random(in: 1...6)
             currentstate.Dice1.displayDice()
@@ -75,12 +74,14 @@ struct DiceRollView: View {
         {
             
         }
-        else if (!myDice.isKept) {
+        else if (!myDice.isKept && myDice.value != 0) {
             myDice.displayDiceOff()
             myDice.isKept = true
+            currentstate.cheatVar += 1
         } else if (myDice.isKept){
             myDice.displayDice()
             myDice.isKept = false
+            currentstate.cheatVar += 1
         }
     }
     // Check if a dice is chosen as kept before rolling again, will lock the dice to prevent player from rolling the dice.
@@ -114,6 +115,14 @@ struct DiceRollView: View {
         }
         
     }
+
+    
+    //DEBUG FUNCTION
+    func debugFlags() {
+        print("Debug Reset: \(currentstate.isResetToggle)")
+        print("Debug Start: \(currentstate.isStart)")
+        print("Debug End Roll: \(currentstate.isEndRoll)")
+    }
     
 
     
@@ -121,6 +130,9 @@ struct DiceRollView: View {
     var body: some View {
         ZStack {
             VStack {
+                HStack {
+                    Text("Remaining Roll(s): \(currentstate.numberOfRoll)")
+                }
                 HStack {
                     //Text(String(Dice1.value))
                     //print("Debug check 3: " + String(Dice1.value))
@@ -135,7 +147,7 @@ struct DiceRollView: View {
                     Button {chooseDice(myDice: currentstate.Dice5)} label: {Image(currentstate.Dice5.image)}
                     Spacer()
                     //print("Debug check 4: " + String(Dice1.value))
-                }
+                }.onAppear(){debugFlags()}
                 Button {
                     //print("DEBUG Button")
                     //print(String(Dice1.value))
@@ -148,7 +160,7 @@ struct DiceRollView: View {
                                                                   currentstate.Dice3.value,
                                                                   currentstate.Dice4.value,
                                                                   currentstate.Dice5.value])
-                    currentstate.numberOfRoll += 1
+                    currentstate.numberOfRoll -= 1
                     currentstate.checkEndRoll()
                     let _ = print(currentstate.numberOfRoll)
                     moveToScore()
@@ -158,17 +170,28 @@ struct DiceRollView: View {
                 }.buttonStyle(.bordered)
                 Button {
                     isOpenScoreSheet.toggle()
-                    countDice()
+
                 } label: {
                     Text("Open Score Board")
                     
                 }.fullScreenCover(isPresented: $isOpenScoreSheet){
-                    ScoreView(currentstate: currentstate, checkScoreSheet: $isOpenScoreSheet)
+                    ScoreView(currentstate: currentstate, checkScoreSheet: $isOpenScoreSheet).onAppear(){
+                        countDice()
+                        debugFlags()
+                        if (currentstate.isResetToggle) {
+                            currentstate.resetState()
+                        }
+                    }
                 }.buttonStyle(.bordered)
-        //        HStack {
-        //            Button("Sign In", action: rolldice())
-        //            Button("Register", action: rolldice())
-        //        }
+                Button {
+                    isOpenInstruction.toggle()
+
+                } label: {
+                    Text("Open Instruction")
+                    
+                }.sheet(isPresented: $isOpenInstruction){
+                    InstructionView()
+                }
                 
 
             }
@@ -179,7 +202,9 @@ struct DiceRollView: View {
 }
 
 struct DiceRollView_Previews: PreviewProvider {
+    @State static var debugBool = false
     static var previews: some View {
         DiceRollView()
+            .previewInterfaceOrientation(.portrait)
     }
 }

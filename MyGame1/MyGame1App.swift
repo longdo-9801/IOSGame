@@ -11,7 +11,7 @@ import SwiftUI
 struct MyGame1App: App {
     var body: some Scene {
         WindowGroup {
-            DiceRollView()
+            MainMenuView()
         }
     }
 }
