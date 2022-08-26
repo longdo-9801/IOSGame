@@ -105,17 +105,18 @@ struct ScoreBoxViewPreview: PreviewProvider {
     @State static var debugBool1 = true
     @State static var debugBool2 = false
     @State static var board = ScoreGroup(name: "DEBUG", selectState: true)
+    @State static var debugState = GameState(diceface1: "Dice1",
+                                             diceface2: "Dice2",
+                                             diceface3: "Dice3",
+                                             diceface4: "Dice4",
+                                             diceface5: "Dice5",
+                                             diceValue: [1,1,1,1,1,0])
     static var previews: some View {
         ZStack {
             Color.white
             ScoreBoxView(displayPoint: "50",
                          scoreBoard: $board,
-                         isOpenScoreSheet: $debugBool1,GameState: GameState(diceface1: "Dice1",
-                                                                            diceface2: "Dice2",
-                                                                            diceface3: "Dice3",
-                                                                            diceface4: "Dice4",
-                                                                            diceface5: "Dice5",
-                                                                            diceValue: [1,1,1,1,1,0]), textColor: .gray)
+                         isOpenScoreSheet: $debugBool1,GameState: $debugState, textColor: .gray)
         }
         
     }

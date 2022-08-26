@@ -185,7 +185,7 @@ struct DiceRollView: View {
                     Text("Open Score Board ✏️")
                     
                 }.fullScreenCover(isPresented: $isOpenScoreSheet){
-                    ScoreView(currentstate: currentstate, checkScoreSheet: $isOpenScoreSheet).onAppear(){
+                    ScoreView(currentstate: $currentstate, checkScoreSheet: $isOpenScoreSheet).onAppear(){
                         countDice()
                         debugFlags()
                         if (currentstate.isResetToggle) {
