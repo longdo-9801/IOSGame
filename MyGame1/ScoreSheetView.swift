@@ -385,11 +385,11 @@ struct ScoreSheetView: View {
 }
 struct ScoreSheetView_Previews: PreviewProvider {
     @State static var debugBool = true
-    @State static var debugState = GameState(diceface1: "Dice1",
-                                             diceface2: "Dice2",
-                                             diceface3: "Dice3",
-                                             diceface4: "Dice4",
-                                             diceface5: "Dice5",
+    @State static var debugState = GameState(dice1: 1,
+                                             dice2: 2,
+                                             dice3: 3,
+                                             dice4: 4,
+                                             dice5: 5,
                                              diceValue: [1,1,1,1,1,0])
     static var previews: some View {
         ScoreSheetView(currentstate: debugState,checkScoreSheet: $debugBool)

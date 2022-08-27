@@ -102,11 +102,11 @@ struct ScoreBoxViewPreview: PreviewProvider {
     @State static var debugBool1 = true
     @State static var debugBool2 = false
     @State static var board = ScoreGroup(name: "DEBUG", selectState: true)
-    @State static var debugState = GameState(diceface1: "Dice1",
-                                             diceface2: "Dice2",
-                                             diceface3: "Dice3",
-                                             diceface4: "Dice4",
-                                             diceface5: "Dice5",
+    @State static var debugState = GameState(dice1: 1,
+                                             dice2: 2,
+                                             dice3: 3,
+                                             dice4: 4,
+                                             dice5: 5,
                                              diceValue: [1,1,1,1,1,0])
     static var previews: some View {
         ZStack {

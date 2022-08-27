@@ -53,6 +53,8 @@ class GameState : ObservableObject {
     @Published var finalScoreP2 : Int
     @Published var upperScoreP2 : Int
     @Published var lowerScoreP2 : Int
+    @Published var recordList : Array<MatchRecord1P>
+    @Published var recordList2P : Array<MatchRecord2P>
     
     init(isPlayer2 : Bool) {
         self.Dice1 = Dice(id: 1, value: 0, image: "DiceDefault")
@@ -95,14 +97,17 @@ class GameState : ObservableObject {
         self.finalScoreP2 = 0
         self.upperScoreP2 = 0
         self.lowerScoreP2 = 0
+        
+        self.recordList = []
+        self.recordList2P = []
     }
     
-    init(diceface1: String, diceface2: String, diceface3 : String, diceface4: String, diceface5: String, diceValue: Array<Int>) {
-        self.Dice1 = Dice(id: 1, value: 0, image: diceface1)
-        self.Dice2 = Dice(id: 2, value: 0, image: diceface2)
-        self.Dice3 = Dice(id: 3, value: 0, image: diceface3)
-        self.Dice4 = Dice(id: 4, value: 0, image: diceface4)
-        self.Dice5 = Dice(id: 5, value: 0, image: diceface5)
+    init(dice1: Int, dice2: Int, dice3: Int, dice4: Int, dice5: Int, diceValue: Array<Int>) {
+        self.Dice1 = Dice(id: 1, value: dice1, image: "Dice1")
+        self.Dice2 = Dice(id: 2, value: dice2, image: "Dice2")
+        self.Dice3 = Dice(id: 3, value: dice3, image: "Dice3")
+        self.Dice4 = Dice(id: 4, value: dice4, image: "Dice4")
+        self.Dice5 = Dice(id: 5, value: dice5, image: "Dice5")
         
         self.allDiceValue = Array(repeating: 0, count: 5)
         self.diceValueCount = diceValue
@@ -138,6 +143,9 @@ class GameState : ObservableObject {
         self.finalScoreP2 = 0
         self.upperScoreP2 = 0
         self.lowerScoreP2 = 0
+        
+        self.recordList = []
+        self.recordList2P = []
     }
     
     //Game state checker

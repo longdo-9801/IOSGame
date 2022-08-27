@@ -80,7 +80,7 @@ struct ScoreTotalBoxView : View {
                 if isUpper {
                     displayName = "Upper Group Total Score: "
                 } else {
-                    displayName = "Lower Group Total Score"
+                    displayName = "Lower Group Total Score: "
                 }
             }
             Spacer(minLength: 100)
@@ -106,12 +106,12 @@ struct ScoreTotalBoxViewPreview: PreviewProvider {
     static var previews: some View {
         ZStack {
             Color.white
-            ScoreTotalBoxView(GameState: GameState(diceface1: "Dice1",
-                                                    diceface2: "Dice2",
-                                                    diceface3: "Dice3",
-                                                    diceface4: "Dice4",
-                                                    diceface5: "Dice5",
-                                                    diceValue: [1,1,1,1,1,0]), isUpper: true)
+            ScoreTotalBoxView(GameState: GameState(dice1: 1,
+                                                   dice2: 2,
+                                                   dice3: 3,
+                                                   dice4: 4,
+                                                   dice5: 5,
+                                                   diceValue: [1,1,1,1,1,0]), isUpper: true)
         }
         
     }
