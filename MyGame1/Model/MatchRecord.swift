@@ -7,7 +7,7 @@
 
 import Foundation
 
-class MatchRecord : NSObject, NSCoding {
+class MatchRecordSaveVer : NSObject, NSCoding {
     @Published var timeID : Date
     @Published var playerName: String
     @Published var finalScore : Int
@@ -37,6 +37,16 @@ class MatchRecord : NSObject, NSCoding {
     }
 }
 
+class MatchRecord1P {
+    @Published var timeID : Date
+    @Published var playerName1: String
+    @Published var finalScoreP1 : Int
+    init(name1: String, score1 : Int) {
+        self.timeID = Date()
+        self.playerName1 = name1
+        self.finalScoreP1 = score1
+    }
+}
 class MatchRecord2P {
     @Published var timeID : Date
     @Published var playerName1: String
