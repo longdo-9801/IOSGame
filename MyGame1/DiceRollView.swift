@@ -18,28 +18,7 @@ struct DiceRollView: View {
        
     
 
-    /* Dice Comparision Functions*/
-    func countDice() {
-        for value in currentstate.allDiceValue {
-            switch value {
-              case 1:
-                currentstate.diceValueCount[0] += 1
-              case 2:
-                currentstate.diceValueCount[1] += 1
-              case 3:
-                currentstate.diceValueCount[2] += 1
-              case 4:
-                currentstate.diceValueCount[3] += 1
-              case 5:
-                currentstate.diceValueCount[4] += 1
-              case 6:
-                currentstate.diceValueCount[5] += 1
-              default:
-                print("Dice Value Error")
-            }
-        }
-    
-    }
+
     
 /* DICE Manipulation Functions*/
     func rolldice(){
@@ -136,7 +115,12 @@ struct DiceRollView: View {
     var body: some View {
         ZStack {
             VStack {
-                Spacer()
+                VStack{
+                    Text("Current Turn: \(currentstate.turnNummber)")
+                    if (currentstate.is2PlayerMode) {
+                        currentstate.isP2 ? Text("Player 2 Turn"):Text("Player 1 Turn")
+                    }
+                }
                 VStack {
                     Text("Current Turn: \(currentstate.turnNummber)")
                     Text("Remaining Roll(s): \(currentstate.numberOfRoll)")
@@ -185,12 +169,9 @@ struct DiceRollView: View {
                     Text("Open Score Board ✏️")
                     
                 }.fullScreenCover(isPresented: $isOpenScoreSheet){
-                    ScoreView(currentstate: currentstate, checkScoreSheet: $isOpenScoreSheet).onAppear(){
-                        countDice()
+                    ScoreSheetView(currentstate: currentstate, checkScoreSheet: $isOpenScoreSheet).onAppear(){
+                        currentstate.countDice()
                         debugFlags()
-                        if (currentstate.isResetToggle) {
-                            currentstate.resetState()
-                        }
                     }
                 }.buttonStyle(.bordered)
                 Spacer()
@@ -215,7 +196,10 @@ struct DiceRollView: View {
 struct DiceRollView_Previews: PreviewProvider {
     @State static var debugBool = false
     static var previews: some View {
-        DiceRollView(currentstate: GameState(isPlayer2: false))
+        //DiceRollView(currentstate: GameState(isPlayer2: false))
+        //    .preferredColorScheme(.light)
+        //    .previewInterfaceOrientation(.portrait)
+        DiceRollView(currentstate: GameState(isPlayer2: true))
             .preferredColorScheme(.light)
             .previewInterfaceOrientation(.portrait)
     }

@@ -26,4 +26,17 @@ class ScoreGroup : ObservableObject {
         self.isFilled2 = false
         
     }
+    
+    func resetGroup() {
+        self.isSelectable = false
+        self.currentValue = 0
+    }
+    
+    func resetGroupFull() {
+        self.finalValue1 = 0
+        self.finalValue2 = 0
+        self.currentValue = 0
+        self.isFilled1 = false
+        self.isFilled2 = false
+    }
 }

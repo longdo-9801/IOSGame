@@ -12,7 +12,7 @@ struct ScoreBoxView : View {
     @ObservedObject var scoreBoard : ScoreGroup
     @Binding var isOpenScoreSheet : Bool
     @ObservedObject var GameState : GameState
-    @ State var textColor : Color = .gray
+    @State var textColor : Color = .gray
 
     func inputScore(scoreGroup : ScoreGroup) {
         if (GameState.isP2) {
@@ -34,30 +34,7 @@ struct ScoreBoxView : View {
                 //Spacer()
             Text(scoreBoard.ID).frame(alignment: .leading)
             Spacer(minLength: 100)
-            Text(displayPoint).foregroundColor(textColor).frame(alignment: .trailing).onAppear {
-                if (GameState.isP2) {
-                    if (!scoreBoard.isSelectable && !scoreBoard.isFilled2) {
-                        self.displayPoint = ""
-                    } else if (scoreBoard.isSelectable && !scoreBoard.isFilled2){
-                        self.displayPoint = String(scoreBoard.currentValue)
-                        self.textColor = .gray
-                    } else {
-                        self.displayPoint = String(scoreBoard.finalValue2)
-                        self.textColor = .black
-                    }
-                } else {
-                    if (!scoreBoard.isSelectable && !scoreBoard.isFilled1) {
-                        self.displayPoint = ""
-                    } else if (!scoreBoard.isFilled1){
-                        self.displayPoint = String(scoreBoard.currentValue)
-                        self.textColor = .gray
-                    } else {
-                        self.displayPoint = String(scoreBoard.finalValue1)
-                        self.textColor = .black
-                    }
-                }
-                
-            }
+            Text(displayPoint).foregroundColor(textColor).frame(alignment: .trailing)
             Spacer().frame(width: 30)
             Button {
                 if (GameState.isP2) {
@@ -94,10 +71,30 @@ struct ScoreBoxView : View {
                 Text("Commit")
             }.frame(alignment: .trailing).buttonStyle(.bordered)
             //Spacer()
-        }
-        
-        
+        }.onAppear {
+            if (GameState.isP2) {
+                if (!scoreBoard.isSelectable && !scoreBoard.isFilled2) {
+                    self.displayPoint = ""
+                } else if (scoreBoard.isSelectable && !scoreBoard.isFilled2){
+                    self.displayPoint = String(scoreBoard.currentValue)
+                    self.textColor = .gray
+                } else {
+                    self.displayPoint = String(scoreBoard.finalValue2)
+                    self.textColor = .black
+                }
+            } else {
+                if (!scoreBoard.isSelectable && !scoreBoard.isFilled1) {
+                    self.displayPoint = ""
+                } else if (!scoreBoard.isFilled1){
+                    self.displayPoint = String(scoreBoard.currentValue)
+                    self.textColor = .gray
+                } else {
+                    self.displayPoint = String(scoreBoard.finalValue1)
+                    self.textColor = .black
+                }
+            }
             
+        }     
     }
 }
 

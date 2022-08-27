@@ -37,7 +37,7 @@ class MatchRecordSaveVer : NSObject, NSCoding {
     }
 }
 
-class MatchRecord1P {
+class MatchRecord1P : Identifiable {
     @Published var timeID : Date
     @Published var playerName1: String
     @Published var finalScoreP1 : Int

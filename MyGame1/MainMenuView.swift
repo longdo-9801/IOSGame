@@ -14,6 +14,7 @@ struct MainMenuView: View {
     @State var isHighScoreView1 : Bool = false
     @State var isHighScoreView2 : Bool = false
     @State var isInstructionView : Bool = false
+    @State var HighScoreList: [MatchRecord1P] = [MatchRecord1P(name1: "Boss", score1: 375)]
     
     var body: some View {
         ZStack {
@@ -26,7 +27,9 @@ struct MainMenuView: View {
                 VStack{
                     Button {isGameView.toggle()} label: {Text("SINGLE PLAYER")}
                     Button {isGameView2P.toggle()} label: {Text("TWO PLAYER")}
-                    Text("HIGHSCORE")
+                    Button {isHighScoreView1.toggle()} label: {Text("HIGHSCORE")}.sheet(isPresented: $isHighScoreView1){
+                        HSView(recordList: HighScoreList)
+                    }
                     Text("MATCH HISTORY")
                     Button {isInstructionView.toggle()} label: {Text("How To Play")}.sheet(isPresented: $isInstructionView){
                         InstructionView()

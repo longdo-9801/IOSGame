@@ -7,70 +7,69 @@
 
 import SwiftUI
 
-struct ScoreView: View {
+struct ScoreSheetView: View {
 
     @ObservedObject var currentstate : GameState
-    @Binding var checkScoreSheet: Bool
-    @State var finalScore: Int = 0
+    @Binding var checkScoreSheet: Bool //Var for opening score sheet
+    @State var finalScore: Int = 0 // DUMMY DATA
         
     /* Upper Group */
+    //Check if player have the valid dice and the board has not been filled
     func upperGroupCheck() {
-        var diceValueCount : Array = currentstate.diceValueCount
-        if (!currentstate.ScoreAce.isFilled1 && diceValueCount[0] > 0) {
+        if (!currentstate.ScoreAce.isFilled1 && currentstate.diceValueCount[0] > 0) {
             currentstate.ScoreAce.isSelectable = true
-            currentstate.ScoreAce.currentValue = 1 * diceValueCount[0]
+            currentstate.ScoreAce.currentValue = 1 * currentstate.diceValueCount[0]
       }
-        if (!currentstate.ScoreTwo.isFilled1 && diceValueCount[1] > 0) {
+        if (!currentstate.ScoreTwo.isFilled1 && currentstate.diceValueCount[1] > 0) {
             currentstate.ScoreTwo.isSelectable = true
-            currentstate.ScoreTwo.currentValue = 2 * diceValueCount[1]
+            currentstate.ScoreTwo.currentValue = 2 * currentstate.diceValueCount[1]
       }
-        if (!currentstate.ScoreThree.isFilled1 && diceValueCount[2] > 0) {
+        if (!currentstate.ScoreThree.isFilled1 && currentstate.diceValueCount[2] > 0) {
             currentstate.ScoreThree.isSelectable = true
-            currentstate.ScoreThree.currentValue = 3 * diceValueCount[2]
+            currentstate.ScoreThree.currentValue = 3 * currentstate.diceValueCount[2]
       }
-        if (!currentstate.ScoreFour.isFilled1 && diceValueCount[3] > 0) {
+        if (!currentstate.ScoreFour.isFilled1 && currentstate.diceValueCount[3] > 0) {
             currentstate.ScoreFour.isSelectable = true
-            currentstate.ScoreFour.currentValue = 4 * diceValueCount[3]
+            currentstate.ScoreFour.currentValue = 4 * currentstate.diceValueCount[3]
       }
-        if (!currentstate.ScoreFive.isFilled1 && diceValueCount[4] > 0) {
+        if (!currentstate.ScoreFive.isFilled1 && currentstate.diceValueCount[4] > 0) {
             currentstate.ScoreFive.isSelectable = true
-            currentstate.ScoreFive.currentValue = 5 * diceValueCount[4]
+            currentstate.ScoreFive.currentValue = 5 * currentstate.diceValueCount[4]
       }
-        if (!currentstate.ScoreSix.isFilled1 && diceValueCount[5] > 0) {
+        if (!currentstate.ScoreSix.isFilled1 && currentstate.diceValueCount[5] > 0) {
             currentstate.ScoreSix.isSelectable = true
-            currentstate.ScoreSix.currentValue = 6 * diceValueCount[5]
+            currentstate.ScoreSix.currentValue = 6 * currentstate.diceValueCount[5]
           
       }
     }
     
     /* Lower Group */
+    //Function check eligability for Three kind,Four kind, Yahtzee and Full House which require multiple dice with the same value.
     func checkDiceCombo() {
-        var valueIndex: Int = 1
-        var diceValueCount : Array = currentstate.diceValueCount
         if (currentstate.isP2) {
-            for diceValue in diceValueCount {
+            for diceValue in currentstate.diceValueCount {
                 if (diceValue == 5) {
                 if (!currentstate.ScoreYahtzee.isFilled2) {
-                currentstate.ScoreYahtzee.isSelectable = true
-                currentstate.ScoreYahtzee.currentValue = 40
+                    currentstate.ScoreYahtzee.isSelectable = true
+                    currentstate.ScoreYahtzee.currentValue = 40
                 }
                 if (!currentstate.ScoreThreeKind.isFilled2) {
-                currentstate.ScoreThreeKind.isSelectable = true
-                currentstate.ScoreThreeKind.currentValue = valueIndex * 3
+                    currentstate.ScoreThreeKind.isSelectable = true
+                    sumDiceValue(scoreboard: currentstate.ScoreThreeKind)
                 }
                 if (!currentstate.ScoreFourKind.isFilled2) {
-                currentstate.ScoreFourKind.isSelectable = true
-                currentstate.ScoreFourKind.currentValue = valueIndex * 4
+                    currentstate.ScoreFourKind.isSelectable = true
+                    sumDiceValue(scoreboard: currentstate.ScoreFourKind)
                 }
 
                 } else if (diceValue == 4) {
                 if (!currentstate.ScoreThreeKind.isFilled2) {
-                currentstate.ScoreThreeKind.isSelectable = true
-                currentstate.ScoreThreeKind.currentValue = valueIndex * 3
+                    currentstate.ScoreThreeKind.isSelectable = true
+                    sumDiceValue(scoreboard: currentstate.ScoreThreeKind)
                 }
                 if (!currentstate.ScoreFourKind.isFilled2) {
-                currentstate.ScoreFourKind.isSelectable = true
-                currentstate.ScoreFourKind.currentValue = valueIndex * 4
+                    currentstate.ScoreFourKind.isSelectable = true
+                    sumDiceValue(scoreboard: currentstate.ScoreFourKind)
                 }
 
                 } else if (diceValue == 3) {
@@ -84,36 +83,34 @@ struct ScoreView: View {
                     }
                     if (!currentstate.ScoreThreeKind.isFilled2) {
                         currentstate.ScoreThreeKind.isSelectable = true
-                        currentstate.ScoreThreeKind.currentValue = valueIndex * 3
+                        sumDiceValue(scoreboard: currentstate.ScoreThreeKind)
                     }
                 }
-            //DEBUG CODE//print("Index position: \(valueIndex) Value: \(diceValue)")
-            valueIndex += 1
             }
         } else {
-            for diceValue in diceValueCount {
+            for diceValue in currentstate.diceValueCount {
                 if (diceValue == 5) {
                 if (!currentstate.ScoreYahtzee.isFilled1) {
                 currentstate.ScoreYahtzee.isSelectable = true
                 currentstate.ScoreYahtzee.currentValue = 40
                 }
                 if (!currentstate.ScoreThreeKind.isFilled1) {
-                currentstate.ScoreThreeKind.isSelectable = true
-                currentstate.ScoreThreeKind.currentValue = valueIndex * 3
+                    currentstate.ScoreThreeKind.isSelectable = true
+                    sumDiceValue(scoreboard: currentstate.ScoreThreeKind)
                 }
                 if (!currentstate.ScoreFourKind.isFilled1) {
-                currentstate.ScoreFourKind.isSelectable = true
-                currentstate.ScoreFourKind.currentValue = valueIndex * 4
+                    currentstate.ScoreFourKind.isSelectable = true
+                    sumDiceValue(scoreboard: currentstate.ScoreFourKind)
                 }
 
                 } else if (diceValue == 4) {
                 if (!currentstate.ScoreThreeKind.isFilled1) {
-                currentstate.ScoreThreeKind.isSelectable = true
-                currentstate.ScoreThreeKind.currentValue = valueIndex * 3
+                    currentstate.ScoreThreeKind.isSelectable = true
+                    sumDiceValue(scoreboard: currentstate.ScoreThreeKind)
                 }
                 if (!currentstate.ScoreFourKind.isFilled1) {
-                currentstate.ScoreFourKind.isSelectable = true
-                currentstate.ScoreFourKind.currentValue = valueIndex * 4
+                    currentstate.ScoreFourKind.isSelectable = true
+                    sumDiceValue(scoreboard: currentstate.ScoreFourKind)
                 }
 
                 } else if (diceValue == 3) {
@@ -127,25 +124,22 @@ struct ScoreView: View {
                     }
                     if (!currentstate.ScoreThreeKind.isFilled1) {
                         currentstate.ScoreThreeKind.isSelectable = true
-                        currentstate.ScoreThreeKind.currentValue = valueIndex * 3
+                        sumDiceValue(scoreboard: currentstate.ScoreThreeKind)
                     }
                 }
-            //DEBUG CODE//print("Index position: \(valueIndex) Value: \(diceValue)")
-            valueIndex += 1
             }
         }
-            
     }
+    //Function to check for Small and Large Straigth which require having four and five dices with sequential value (1-2-3-4 or 3-4-5-6,etc..) repsectively
     func checkDiceSequence() {
-        var diceValueCount : Array = currentstate.diceValueCount
         // Logic check explanation: As the sum of all value count is always 5 and there must be at least one of four sequential dice value
         //, if there are two values that appear twice, one of the remaining two value will be 0
         // Example : if there are 2x I, 2x II then either IV or III is equal to 0 which will stop the logic check
         if (currentstate.isP2) {
             if (!currentstate.ScoreSmallStraight.isFilled2) {
-                if (diceValueCount[0]>=1 && diceValueCount[1]>=1 && diceValueCount[2]>=1 && diceValueCount[3]>=1)
-                || (diceValueCount[1]>=1 && diceValueCount[2]>=1 && diceValueCount[3]>=1 && diceValueCount[4]>=1)
-                || (diceValueCount[2]>=1 && diceValueCount[3]>=1 && diceValueCount[4]>=1 && diceValueCount[5]>=1)
+                if (currentstate.diceValueCount[0]>=1 && currentstate.diceValueCount[1]>=1 && currentstate.diceValueCount[2]>=1 && currentstate.diceValueCount[3]>=1)
+                    || (currentstate.diceValueCount[1]>=1 && currentstate.diceValueCount[2]>=1 && currentstate.diceValueCount[3]>=1 && currentstate.diceValueCount[4]>=1)
+                    || (currentstate.diceValueCount[2]>=1 && currentstate.diceValueCount[3]>=1 && currentstate.diceValueCount[4]>=1 && currentstate.diceValueCount[5]>=1)
                 {
                     currentstate.ScoreSmallStraight.isSelectable = true
                     currentstate.ScoreSmallStraight.currentValue = 30
@@ -153,8 +147,8 @@ struct ScoreView: View {
             }
             // As the sequence must contain one each dice value, only a straight foward check of the value count of two possible sequence is needed
             if (!currentstate.ScoreLargeStraight.isFilled2) {
-                if (diceValueCount[0]==1 && diceValueCount[1]==1 && diceValueCount[2]==1 && diceValueCount[3]==1 && diceValueCount[4]==1)
-                || (diceValueCount[1]==1 && diceValueCount[2]==1 && diceValueCount[3]==1 && diceValueCount[4]==1 && diceValueCount[5]==1)
+                if (currentstate.diceValueCount[0]==1 && currentstate.diceValueCount[1]==1 && currentstate.diceValueCount[2]==1 && currentstate.diceValueCount[3]==1 && currentstate.diceValueCount[4]==1)
+                    || (currentstate.diceValueCount[1]==1 && currentstate.diceValueCount[2]==1 && currentstate.diceValueCount[3]==1 && currentstate.diceValueCount[4]==1 && currentstate.diceValueCount[5]==1)
                 {
                     currentstate.ScoreLargeStraight.isSelectable = true
                     currentstate.ScoreLargeStraight.currentValue = 40
@@ -162,9 +156,9 @@ struct ScoreView: View {
             }
         } else {
             if (!currentstate.ScoreSmallStraight.isFilled1) {
-                if (diceValueCount[0]>=1 && diceValueCount[1]>=1 && diceValueCount[2]>=1 && diceValueCount[3]>=1)
-                || (diceValueCount[1]>=1 && diceValueCount[2]>=1 && diceValueCount[3]>=1 && diceValueCount[4]>=1)
-                || (diceValueCount[2]>=1 && diceValueCount[3]>=1 && diceValueCount[4]>=1 && diceValueCount[5]>=1)
+                if (currentstate.diceValueCount[0]>=1 && currentstate.diceValueCount[1]>=1 && currentstate.diceValueCount[2]>=1 && currentstate.diceValueCount[3]>=1)
+                    || (currentstate.diceValueCount[1]>=1 && currentstate.diceValueCount[2]>=1 && currentstate.diceValueCount[3]>=1 && currentstate.diceValueCount[4]>=1)
+                    || (currentstate.diceValueCount[2]>=1 && currentstate.diceValueCount[3]>=1 && currentstate.diceValueCount[4]>=1 && currentstate.diceValueCount[5]>=1)
                 {
                     currentstate.ScoreSmallStraight.isSelectable = true
                     currentstate.ScoreSmallStraight.currentValue = 30
@@ -172,8 +166,8 @@ struct ScoreView: View {
             }
             // As the sequence must contain one each dice value, only a straight foward check of the value count of two possible sequence is needed
             if (!currentstate.ScoreLargeStraight.isFilled1) {
-                if (diceValueCount[0]==1 && diceValueCount[1]==1 && diceValueCount[2]==1 && diceValueCount[3]==1 && diceValueCount[4]==1)
-                || (diceValueCount[1]==1 && diceValueCount[2]==1 && diceValueCount[3]==1 && diceValueCount[4]==1 && diceValueCount[5]==1)
+                if (currentstate.diceValueCount[0]==1 && currentstate.diceValueCount[1]==1 && currentstate.diceValueCount[2]==1 && currentstate.diceValueCount[3]==1 && currentstate.diceValueCount[4]==1)
+                    || (currentstate.diceValueCount[1]==1 && currentstate.diceValueCount[2]==1 && currentstate.diceValueCount[3]==1 && currentstate.diceValueCount[4]==1 && currentstate.diceValueCount[5]==1)
                 {
                     currentstate.ScoreLargeStraight.isSelectable = true
                     currentstate.ScoreLargeStraight.currentValue = 40
@@ -182,29 +176,18 @@ struct ScoreView: View {
         }
         
     }
-    func chanceScoreCal() {
-        if (currentstate.isP2 && !currentstate.ScoreChance.isFilled2) {
-                //Calculate using the sum of value
-                currentstate.ScoreChance.currentValue =
-                    1 * currentstate.diceValueCount[0] + 2 * currentstate.diceValueCount[1]
-                  + 3 * currentstate.diceValueCount[2] + 4 * currentstate.diceValueCount[3]
-                  + 5 * currentstate.diceValueCount[4] + 6 * currentstate.diceValueCount[5]
-        } else {
-            if (!currentstate.ScoreChance.isFilled1) {
-                //Calculate using the sum of value
-                currentstate.ScoreChance.currentValue =
-                    1 * currentstate.diceValueCount[0] + 2 * currentstate.diceValueCount[1]
-                  + 3 * currentstate.diceValueCount[2] + 4 * currentstate.diceValueCount[3]
-                  + 5 * currentstate.diceValueCount[4] + 6 * currentstate.diceValueCount[5]
-            }
-        }
-        
-
+    //Use to calculate the point for Three Kind , Four Kind and Chance
+    func sumDiceValue(scoreboard : ScoreGroup) {
+        scoreboard.currentValue =
+        1 * currentstate.diceValueCount[0] + 2 * currentstate.diceValueCount[1]
+      + 3 * currentstate.diceValueCount[2] + 4 * currentstate.diceValueCount[3]
+      + 5 * currentstate.diceValueCount[4] + 6 * currentstate.diceValueCount[5]
     }
-
+    
+    //Check if player still have a valid move, if not "allow" player to input 0 into a valid scoreboard
     func checkNoMove() {
         if (currentstate.ScoreChance.isSelectable) {
-            chanceScoreCal()
+            sumDiceValue(scoreboard: currentstate.ScoreChance)
         } else {
             if !currentstate.ScoreAce.isSelectable && !currentstate.ScoreTwo.isSelectable && !currentstate.ScoreThree.isSelectable
                 && !currentstate.ScoreFour.isSelectable && !currentstate.ScoreFive.isSelectable && !currentstate.ScoreSix.isSelectable
@@ -344,7 +327,7 @@ struct ScoreView: View {
                                        Spacer()
                                        //print("Debug check 4: " + String(Dice1.value))
                                    }.onAppear{
-                                       chanceScoreCal()
+                                       sumDiceValue(scoreboard: currentstate.ScoreChance)
                                        upperGroupCheck()
                                        checkDiceCombo()
                                        checkDiceSequence()
@@ -355,6 +338,19 @@ struct ScoreView: View {
                                        currentstate.Dice4.displayDice()
                                        currentstate.Dice5.displayDice()
                                        //DEBUG Dice Value Count
+                                       print("Score 1 check: \(currentstate.ScoreAce.isSelectable)")
+                                       print("Score 2 check: \(currentstate.ScoreTwo.isSelectable)")
+                                       print("Score 3 check: \(currentstate.ScoreThree.isSelectable)")
+                                       print("Score 4 check: \(currentstate.ScoreFour.isSelectable)")
+                                       print("Score 5 check: \(currentstate.ScoreFive.isSelectable)")
+                                       print("Score 6 check: \(currentstate.ScoreSix.isSelectable)")
+                                       print("Score 3k check: \(currentstate.ScoreThreeKind.isSelectable)")
+                                       print("Score 4k check: \(currentstate.ScoreFourKind.isSelectable)")
+                                       print("Score FH check: \(currentstate.ScoreFullHouse.isSelectable)")
+                                       print("Score SS check: \(currentstate.ScoreSmallStraight.isSelectable)")
+                                       print("Score LS check: \(currentstate.ScoreLargeStraight.isSelectable)")
+                                       print("Score Y check: \(currentstate.ScoreYahtzee.isSelectable)")
+                                       print("Score C check: \(currentstate.ScoreChance.isSelectable)")
                                        let _ = dump(currentstate.diceValueCount)
                                        }
                                    //Upper Group
@@ -387,7 +383,7 @@ struct ScoreView: View {
             
         }
 }
-struct ScoreView_Previews: PreviewProvider {
+struct ScoreSheetView_Previews: PreviewProvider {
     @State static var debugBool = true
     @State static var debugState = GameState(diceface1: "Dice1",
                                              diceface2: "Dice2",
@@ -396,7 +392,7 @@ struct ScoreView_Previews: PreviewProvider {
                                              diceface5: "Dice5",
                                              diceValue: [1,1,1,1,1,0])
     static var previews: some View {
-        ScoreView(currentstate: debugState,checkScoreSheet: $debugBool)
+        ScoreSheetView(currentstate: debugState,checkScoreSheet: $debugBool)
         .preferredColorScheme(.dark)
     }
 }

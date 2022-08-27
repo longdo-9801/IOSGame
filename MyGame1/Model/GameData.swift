@@ -140,6 +140,7 @@ class GameState : ObservableObject {
         self.lowerScoreP2 = 0
     }
     
+    //Game state checker
     func checkEndRoll() {
         if numberOfRoll == 0 {
             self.isEndRoll = true
@@ -152,6 +153,30 @@ class GameState : ObservableObject {
         if turnNummber == 14 {
             self.isEndGame = true
         }
+    }
+    
+    /* Dice Comparision Functions*/
+    func countDice() {
+        resetDiceCounter()
+        for value in self.allDiceValue {
+            switch value {
+              case 1:
+                self.diceValueCount[0] += 1
+              case 2:
+                self.diceValueCount[1] += 1
+              case 3:
+                self.diceValueCount[2] += 1
+              case 4:
+                self.diceValueCount[3] += 1
+              case 5:
+                self.diceValueCount[4] += 1
+              case 6:
+                self.diceValueCount[5] += 1
+              default:
+                print("Dice Value Error")
+            }
+        }
+    
     }
     func resetDiceCounter() {
         diceValueCount = [0,0,0,0,0,0]
@@ -167,6 +192,19 @@ class GameState : ObservableObject {
         Dice3.resetDice()
         Dice4.resetDice()
         Dice5.resetDice()
+        ScoreAce.resetGroup()
+        ScoreTwo.resetGroup()
+        ScoreThree.resetGroup()
+        ScoreFour.resetGroup()
+        ScoreFive.resetGroup()
+        ScoreSix.resetGroup()
+        ScoreThreeKind.resetGroup()
+        ScoreFourKind.resetGroup()
+        ScoreFullHouse.resetGroup()
+        ScoreSmallStraight.resetGroup()
+        ScoreLargeStraight.resetGroup()
+        ScoreYahtzee.resetGroup()
+        ScoreChance.currentValue = 0
         resetDiceCounter()
         if is2PlayerMode {
             if isP2 {
@@ -177,7 +215,7 @@ class GameState : ObservableObject {
         }
         
     }
-    
+    //Score sum functions
     func UpperCal() {
         if is2PlayerMode {
             upperScoreP2 = ScoreAce.finalValue2

@@ -8,14 +8,25 @@
 import SwiftUI
 
 struct HSView : View {
-    @State var recordList : Array<MatchRecord>
+    @State var recordList : Array<MatchRecord1P>
     var body: some View {
-        Text("PLACEHOLDER@")
+        ZStack {
+            VStack{
+                Text("Play Record")
+                List {
+                    ForEach(recordList) { record in
+                        ResultBox(record: record)
+                    }
+                }
+        
+            }
+        }
     }
 }
 
-//struct HSView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        HSView()
-//    }
-//}
+struct HSView_Previews: PreviewProvider {
+    @State static var oeviewList : [MatchRecord1P] = [MatchRecord1P(name1: "Boss", score1: 375),MatchRecord1P(name1: "Boss", score1: 375),MatchRecord1P(name1: "Boss", score1: 375),MatchRecord1P(name1: "Boss", score1: 375)]
+    static var previews: some View {
+        HSView(recordList: oeviewList)
+    }
+}
