@@ -364,7 +364,7 @@ struct ScoreSheetView: View {
                                        ScoreBoxView(scoreBoard: currentstate.ScoreSix, isOpenScoreSheet: $checkScoreSheet, GameState: currentstate)
                                        ScoreTotalBoxView(GameState: currentstate, isUpper: true)
                                    }
-                                   Divider()
+//                                   Divider()
                                    VStack {
                                        Text("Lower Point Group")
                                        ScoreBoxView(scoreBoard: currentstate.ScoreThreeKind, isOpenScoreSheet: $checkScoreSheet, GameState: currentstate)
@@ -374,7 +374,7 @@ struct ScoreSheetView: View {
                                        ScoreBoxView(scoreBoard: currentstate.ScoreLargeStraight, isOpenScoreSheet: $checkScoreSheet, GameState: currentstate)
                                        ScoreBoxView(scoreBoard: currentstate.ScoreYahtzee, isOpenScoreSheet: $checkScoreSheet, GameState: currentstate)
                                        ScoreBoxView(scoreBoard: currentstate.ScoreChance, isOpenScoreSheet: $checkScoreSheet, GameState: currentstate)
-                                       ScoreTotalBoxView(GameState: currentstate, isUpper: false)
+                                      ScoreTotalBoxView(GameState: currentstate, isUpper: false)
                                    }
                                }
                            }

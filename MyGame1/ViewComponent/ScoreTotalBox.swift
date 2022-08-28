@@ -21,14 +21,18 @@ struct ScoreTotalBoxView : View {
             && GameState.ScoreThree.isFilled2 && GameState.ScoreFour.isFilled2
             && GameState.ScoreFive.isFilled2 && GameState.ScoreSix.isFilled2 {
                 textColor = .black
-                if GameState.upperScoreP2 >= 63 {displayPoint = "\(GameState.upperScoreP2) + Bonus: 35"}
+                if GameState.upperScoreP2 >= 63 {
+                    displayPoint = "\(GameState.upperScoreP2) + Bonus: 35"
+                }
                 
         } else {
             if GameState.ScoreAce.isFilled1 && GameState.ScoreTwo.isFilled1
                 && GameState.ScoreThree.isFilled1 && GameState.ScoreFour.isFilled1
                 && GameState.ScoreFive.isFilled1 && GameState.ScoreSix.isFilled1 {
                 textColor = .black
-                if GameState.upperScoreP1 >= 63 {displayPoint = "\(GameState.upperScoreP1) + Bonus: 35"}
+                if GameState.upperScoreP1 >= 63 {
+                    displayPoint = "\(GameState.upperScoreP1) + Bonus: 35"
+                }
             }
         }
         }
@@ -58,14 +62,18 @@ struct ScoreTotalBoxView : View {
         if GameState.isP2 {
             if isUpper {
                 displayPoint = String(GameState.upperScoreP2)
+                UpperCheckAllFill()
             } else {
                 displayPoint = String(GameState.lowerScoreP2)
+                LowerCheckAllFill()
             }
         } else {
             if isUpper {
                 displayPoint = String(GameState.upperScoreP1)
+                UpperCheckAllFill()
             } else {
                 displayPoint = String(GameState.lowerScoreP1)
+                LowerCheckAllFill()
             }
         }
         
@@ -87,10 +95,10 @@ struct ScoreTotalBoxView : View {
             Text(String(displayPoint)).foregroundColor(textColor).frame(alignment: .trailing).onAppear {
                 if isUpper {
                     GameState.UpperCal()
-                    
                 } else {
                     GameState.LowerCal()
             }
+                display()
             }
             Spacer().frame(width: 30)
             

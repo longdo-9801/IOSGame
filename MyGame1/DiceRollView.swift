@@ -102,19 +102,23 @@ struct DiceRollView: View {
         }
     }
 
+    func setEndGame() {
+        
+    }
     
     //DEBUG FUNCTION
     func debugFlags() {
         print("Debug Reset: \(currentstate.isResetToggle)")
         print("Debug Start: \(currentstate.isStart)")
         print("Debug End Roll: \(currentstate.isEndRoll)")
+        print("Debug End Game: \(currentstate.isEndGame)")
     }
     
 
     
     //VIEW BODY
     var body: some View {
-        if currentstate.isEndGame {
+        if isEndGame {
             HSView(recordList: $recordList, gameState: currentstate)
         } else {
             ZStack {
@@ -126,7 +130,6 @@ struct DiceRollView: View {
                         }
                     }
                     VStack {
-                        Text("Current Turn: \(currentstate.turnNummber)")
                         Text("Remaining Roll(s): \(currentstate.numberOfRoll)")
                     }.fullScreenCover(isPresented: $currentstate.isEndGame) {
                         
@@ -146,7 +149,11 @@ struct DiceRollView: View {
                         Button {chooseDice(myDice: currentstate.Dice5)} label: {Image(currentstate.Dice5.image)}
                         Spacer()
                         //print("Debug check 4: " + String(Dice1.value))
-                    }.onAppear(){debugFlags()}
+                    }.onAppear(){
+                        currentstate.checkEndGame()
+                        debugFlags()
+                        isEndGame = currentstate.isEndGame
+                    }
                     Button {
                         //print("DEBUG Button")
                         //print(String(Dice1.value))
@@ -203,11 +210,11 @@ struct DiceRollView_Previews: PreviewProvider {
     @State static var debugBool = false
     @State static var previewList : [MatchRecord1P] = [MatchRecord1P(name1: "Boss", score1: 375)]
     static var previews: some View {
-        //DiceRollView(currentstate: GameState(isPlayer2: false,Player1: "Default",Player2: nil))
-        //    .preferredColorScheme(.light)
-        //    .previewInterfaceOrientation(.portrait)
-        DiceRollView(currentstate: GameState(isPlayer2: true,Player1: "Default",Player2: "Default2"), recordList: $previewList)
-            .preferredColorScheme(.light)
+        DiceRollView(currentstate: GameState(isPlayer2: false,Player1: "Default",Player2: nil), recordList: $previewList)
+
             .previewInterfaceOrientation(.portrait)
+//        DiceRollView(currentstate: GameState(isPlayer2: true,Player1: "Default",Player2: "Default2"), recordList: $previewList)
+//            .preferredColorScheme(.light)
+//            .previewInterfaceOrientation(.portrait)
     }
 }

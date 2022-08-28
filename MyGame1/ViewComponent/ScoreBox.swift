@@ -47,6 +47,7 @@ struct ScoreBoxView : View {
                         GameState.resetDiceCounter()
                         scoreBoard.isSelectable = false
                         GameState.turnNummber += 1
+                        GameState.checkEndGame()
                     }
                 } else {
                     if (!scoreBoard.isFilled1 && isOpenScoreSheet && !GameState.isStart) {
@@ -101,7 +102,7 @@ struct ScoreBoxView : View {
 struct ScoreBoxViewPreview: PreviewProvider {
     @State static var debugBool1 = true
     @State static var debugBool2 = false
-    @State static var board = ScoreGroup(name: "DEBUG", selectState: true)
+    //@State static var board = ScoreGroup(name: "DEBUG", selectState: true)
     @State static var debugState = GameState(dice1: 1,
                                              dice2: 2,
                                              dice3: 3,
@@ -112,7 +113,7 @@ struct ScoreBoxViewPreview: PreviewProvider {
         ZStack {
             Color.white
             ScoreBoxView(displayPoint: "50",
-                         scoreBoard: board,
+                         scoreBoard: debugState.ScoreFourKind,
                          isOpenScoreSheet: $debugBool1,GameState: debugState, textColor: .gray)
         }
         
