@@ -14,6 +14,7 @@ struct DiceRollView: View {
     @State var isOpenScoreSheet = false
     @State var isOpenInstruction = false
     @State var isEndGame = false
+    @Binding var recordList : Array<MatchRecord1P>
     
        
     
@@ -113,93 +114,99 @@ struct DiceRollView: View {
     
     //VIEW BODY
     var body: some View {
-        ZStack {
-            VStack {
-                VStack{
-                    Text("Current Turn: \(currentstate.turnNummber)")
-                    if (currentstate.is2PlayerMode) {
-                        currentstate.isP2 ? Text("Player 2 Turn"):Text("Player 1 Turn")
-                    }
-                }
+        if currentstate.isEndGame {
+            HSView(recordList: $recordList, gameState: currentstate)
+        } else {
+            ZStack {
                 VStack {
-                    Text("Current Turn: \(currentstate.turnNummber)")
-                    Text("Remaining Roll(s): \(currentstate.numberOfRoll)")
-                }.fullScreenCover(isPresented: $currentstate.isEndGame) {
-                    
-                }
-                Spacer()
-                HStack {
-                    //Text(String(Dice1.value))
-                    //print("Debug check 3: " + String(Dice1.value))
-                    Spacer()
-                    Button {chooseDice(myDice: currentstate.Dice1)
-                        print(currentstate.Dice1.image)
-                        print(currentstate.Dice1.isKept)
-                    } label: {Image(currentstate.Dice1.image)}
-                    Button {chooseDice(myDice: currentstate.Dice2)} label: {Image(currentstate.Dice2.image)}
-                    Button {chooseDice(myDice: currentstate.Dice3)} label: {Image(currentstate.Dice3.image)}
-                    Button {chooseDice(myDice: currentstate.Dice4)} label: {Image(currentstate.Dice4.image)}
-                    Button {chooseDice(myDice: currentstate.Dice5)} label: {Image(currentstate.Dice5.image)}
-                    Spacer()
-                    //print("Debug check 4: " + String(Dice1.value))
-                }.onAppear(){debugFlags()}
-                Button {
-                    //print("DEBUG Button")
-                    //print(String(Dice1.value))
-                    //print(Dice1.image)
-                    currentstate.allDiceValue.removeAll()
-                    lockDice()
-                    rolldice()
-                    currentstate.allDiceValue.append(contentsOf: [currentstate.Dice1.value,
-                                                                  currentstate.Dice2.value,
-                                                                  currentstate.Dice3.value,
-                                                                  currentstate.Dice4.value,
-                                                                  currentstate.Dice5.value])
-                    currentstate.numberOfRoll -= 1
-                    currentstate.checkEndRoll()
-                    let _ = print(currentstate.numberOfRoll)
-                    moveToScore()
-                    //dump(allDiceValue)
-                } label: {
-                    Text("Roll Dice 🎲")
-                }.buttonStyle(.bordered)
-                Button {
-                    isOpenScoreSheet.toggle()
-                } label: {
-                    Text("Open Score Board ✏️")
-                    
-                }.fullScreenCover(isPresented: $isOpenScoreSheet){
-                    ScoreSheetView(currentstate: currentstate, checkScoreSheet: $isOpenScoreSheet).onAppear(){
-                        currentstate.countDice()
-                        debugFlags()
+                    VStack{
+                        Text("Current Turn: \(currentstate.turnNummber)")
+                        if (currentstate.is2PlayerMode) {
+                            currentstate.isP2 ? Text("Player 2 Turn"):Text("Player 1 Turn")
+                        }
                     }
-                }.buttonStyle(.bordered)
-                Spacer()
-                Button {
-                    isOpenInstruction.toggle()
+                    VStack {
+                        Text("Current Turn: \(currentstate.turnNummber)")
+                        Text("Remaining Roll(s): \(currentstate.numberOfRoll)")
+                    }.fullScreenCover(isPresented: $currentstate.isEndGame) {
+                        
+                    }
+                    Spacer()
+                    HStack {
+                        //Text(String(Dice1.value))
+                        //print("Debug check 3: " + String(Dice1.value))
+                        Spacer()
+                        Button {chooseDice(myDice: currentstate.Dice1)
+                            print(currentstate.Dice1.image)
+                            print(currentstate.Dice1.isKept)
+                        } label: {Image(currentstate.Dice1.image)}
+                        Button {chooseDice(myDice: currentstate.Dice2)} label: {Image(currentstate.Dice2.image)}
+                        Button {chooseDice(myDice: currentstate.Dice3)} label: {Image(currentstate.Dice3.image)}
+                        Button {chooseDice(myDice: currentstate.Dice4)} label: {Image(currentstate.Dice4.image)}
+                        Button {chooseDice(myDice: currentstate.Dice5)} label: {Image(currentstate.Dice5.image)}
+                        Spacer()
+                        //print("Debug check 4: " + String(Dice1.value))
+                    }.onAppear(){debugFlags()}
+                    Button {
+                        //print("DEBUG Button")
+                        //print(String(Dice1.value))
+                        //print(Dice1.image)
+                        currentstate.allDiceValue.removeAll()
+                        lockDice()
+                        rolldice()
+                        currentstate.allDiceValue.append(contentsOf: [currentstate.Dice1.value,
+                                                                      currentstate.Dice2.value,
+                                                                      currentstate.Dice3.value,
+                                                                      currentstate.Dice4.value,
+                                                                      currentstate.Dice5.value])
+                        currentstate.numberOfRoll -= 1
+                        currentstate.checkEndRoll()
+                        let _ = print(currentstate.numberOfRoll)
+                        moveToScore()
+                        //dump(allDiceValue)
+                    } label: {
+                        Text("Roll Dice 🎲")
+                    }.buttonStyle(.bordered)
+                    Button {
+                        isOpenScoreSheet.toggle()
+                    } label: {
+                        Text("Open Score Board ✏️")
+                        
+                    }.fullScreenCover(isPresented: $isOpenScoreSheet){
+                        ScoreSheetView(currentstate: currentstate, checkScoreSheet: $isOpenScoreSheet).onAppear(){
+                            currentstate.countDice()
+                            debugFlags()
+                        }
+                    }.buttonStyle(.bordered)
+                    Spacer()
+                    Button {
+                        isOpenInstruction.toggle()
 
-                } label: {
-                    Text("Open Instruction 📘")
+                    } label: {
+                        Text("Open Instruction 📘")
+                        
+                    }.sheet(isPresented: $isOpenInstruction){
+                        InstructionView()
+                    }
                     
-                }.sheet(isPresented: $isOpenInstruction){
-                    InstructionView()
-                }
-                
 
-            }
-            }
+                }
+                }
         }
+        
+    }
 
 
 }
 
 struct DiceRollView_Previews: PreviewProvider {
     @State static var debugBool = false
+    @State static var previewList : [MatchRecord1P] = [MatchRecord1P(name1: "Boss", score1: 375)]
     static var previews: some View {
-        //DiceRollView(currentstate: GameState(isPlayer2: false))
+        //DiceRollView(currentstate: GameState(isPlayer2: false,Player1: "Default",Player2: nil))
         //    .preferredColorScheme(.light)
         //    .previewInterfaceOrientation(.portrait)
-        DiceRollView(currentstate: GameState(isPlayer2: true))
+        DiceRollView(currentstate: GameState(isPlayer2: true,Player1: "Default",Player2: "Default2"), recordList: $previewList)
             .preferredColorScheme(.light)
             .previewInterfaceOrientation(.portrait)
     }

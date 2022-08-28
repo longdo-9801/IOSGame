@@ -393,6 +393,5 @@ struct ScoreSheetView_Previews: PreviewProvider {
                                              diceValue: [1,1,1,1,1,0])
     static var previews: some View {
         ScoreSheetView(currentstate: debugState,checkScoreSheet: $debugBool)
-        .preferredColorScheme(.dark)
     }
 }

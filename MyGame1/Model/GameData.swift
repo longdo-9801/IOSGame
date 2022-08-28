@@ -47,16 +47,16 @@ class GameState : ObservableObject {
     @Published var ScoreChance : ScoreGroup
     
     //Score vars
+    @Published var playerName1 : String = "Default"
+    @Published var playerName2 : String = ""
     @Published var finalScoreP1 : Int
     @Published var upperScoreP1 : Int
     @Published var lowerScoreP1 : Int
     @Published var finalScoreP2 : Int
     @Published var upperScoreP2 : Int
     @Published var lowerScoreP2 : Int
-    @Published var recordList : Array<MatchRecord1P>
-    @Published var recordList2P : Array<MatchRecord2P>
     
-    init(isPlayer2 : Bool) {
+    init(isPlayer2 : Bool, Player1 : String, Player2 : String?) {
         self.Dice1 = Dice(id: 1, value: 0, image: "DiceDefault")
         self.Dice2 = Dice(id: 2, value: 0, image: "DiceDefault")
         self.Dice3 = Dice(id: 3, value: 0, image: "DiceDefault")
@@ -98,8 +98,11 @@ class GameState : ObservableObject {
         self.upperScoreP2 = 0
         self.lowerScoreP2 = 0
         
-        self.recordList = []
-        self.recordList2P = []
+        self.playerName1 = Player1
+        if is2PlayerMode {
+            self.playerName2 = Player2!
+        }
+        
     }
     
     init(dice1: Int, dice2: Int, dice3: Int, dice4: Int, dice5: Int, diceValue: Array<Int>) {
@@ -143,9 +146,7 @@ class GameState : ObservableObject {
         self.finalScoreP2 = 0
         self.upperScoreP2 = 0
         self.lowerScoreP2 = 0
-        
-        self.recordList = []
-        self.recordList2P = []
+
     }
     
     //Game state checker

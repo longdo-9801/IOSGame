@@ -46,6 +46,12 @@ class MatchRecord1P : Identifiable {
         self.playerName1 = name1
         self.finalScoreP1 = score1
     }
+    //For manual creation of record
+    init(name1: String, score1 : Int, time: Date) {
+        self.timeID = time
+        self.playerName1 = name1
+        self.finalScoreP1 = score1
+    }
 }
 class MatchRecord2P {
     @Published var timeID : Date
