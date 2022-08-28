@@ -6,28 +6,27 @@
 //
 
 import SwiftUI
+import AVFoundation
+
+//class PlayViewModel {
+//    private var audioPlayer: AVAudioPlayer!
+//    func play() {
+//        let sound = Bundle.main.path(forResource: "dice", ofType: "mp3")
+//        self.audioPlayer = try! AVAudioPlayer(contentsOf: URL(fileURLWithPath: sound!))
+//        self.audioPlayer.play()
+//    }
+//}
 
 struct TestView: View {
-        @State private var half = false
-        @State private var dim = false
-    @State var location : Float = 2.0
-        
-        var body: some View {
-            Image("Dice1")
-                .offset(y: CGFloat(location))
-                .opacity(dim ? 0.2 : 1.0)
-                .animation(.easeInOut(duration: 1.0))
-                .onTapGesture {
-                    self.dim.toggle()
-                    self.half.toggle()
-                    if half {
-                        location = 100.0
-                    } else {
-                        location = -100.0
-                    }
-                    
-                }
+
+    var body: some View {
+        Button {
+            print(">> tap up")
+            AudioManager.playSounds(soundfile: "dice.mp3")
+        } label: {
+            Text("Audio")
         }
+    }
 }
 
 

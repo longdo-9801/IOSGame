@@ -10,13 +10,13 @@ import Foundation
 class GameState : ObservableObject {
     
     //Store Game setting
-    @Published var turnNummber : Int
-    @Published var is2PlayerMode : Bool
-    @Published var isP2: Bool
+    @Published var turnNumber : Int //To determine the current., if it reach 14, the game end
+    @Published var is2PlayerMode : Bool //Flag to check if the game is in two player mode
+    @Published var isP2: Bool //Flag to check if it's Player two turn
     @Published var isEndRoll : Bool
     @Published var isEndGame: Bool
     @Published var numberOfRoll: Int
-    @Published var cheatVar: Int
+    @Published var cheatVar: Int // A var for forcing the view to update
     @Published var isStart : Bool
     @Published var isResetToggle : Bool
     @Published var workaround : Int = 0
@@ -66,7 +66,7 @@ class GameState : ObservableObject {
         
         self.allDiceValue = Array(repeating: 0, count: 5)
         self.diceValueCount = Array(repeating: 0, count: 6)
-        self.turnNummber = 1
+        self.turnNumber = 1
         self.is2PlayerMode = isPlayer2
         self.isP2 = false
         self.cheatVar = 0
@@ -115,7 +115,7 @@ class GameState : ObservableObject {
         
         self.allDiceValue = Array(repeating: 0, count: 5)
         self.diceValueCount = diceValue
-        self.turnNummber = 1
+        self.turnNumber = 1
         self.is2PlayerMode = false
         self.isP2 = false
         self.cheatVar = 0
@@ -160,7 +160,7 @@ class GameState : ObservableObject {
     }
     
     func checkEndGame() {
-        if turnNummber == 14 {
+        if turnNumber > 13 {
             self.isEndGame = true
         }
     }
@@ -223,8 +223,53 @@ class GameState : ObservableObject {
                 isP2 = true
             }
         }
-        
     }
+    
+    func fullReset() {
+        self.Dice1 = Dice(id: 1, value: 0, image: "DiceDefault")
+        self.Dice2 = Dice(id: 2, value: 0, image: "DiceDefault")
+        self.Dice3 = Dice(id: 3, value: 0, image: "DiceDefault")
+        self.Dice4 = Dice(id: 4, value: 0, image: "DiceDefault")
+        self.Dice5 = Dice(id: 5, value: 0, image: "DiceDefault")
+        
+        self.allDiceValue = Array(repeating: 0, count: 5)
+        self.diceValueCount = Array(repeating: 0, count: 6)
+        self.turnNumber = 1
+        self.is2PlayerMode = false
+        self.isP2 = false
+        self.cheatVar = 0
+        
+        self.isStart = true
+        self.isEndRoll = false
+        self.isEndGame = false
+        self.numberOfRoll = 3
+        self.isResetToggle = false
+        
+        self.ScoreAce = ScoreGroup(name: "Aces", selectState : false)
+        self.ScoreTwo = ScoreGroup(name: "Twos", selectState : false)
+        self.ScoreThree = ScoreGroup(name: "Threes", selectState : false)
+        self.ScoreFour = ScoreGroup(name: "Fours", selectState : false)
+        self.ScoreFive = ScoreGroup(name: "Fives", selectState : false)
+        self.ScoreSix = ScoreGroup(name: "Sixes", selectState : false)
+
+        self.ScoreThreeKind = ScoreGroup(name: "Three of a Kind", selectState : false)
+        self.ScoreFourKind = ScoreGroup(name: "Four of a Kind", selectState : false)
+        self.ScoreFullHouse = ScoreGroup(name: "Full House", selectState : false)
+        self.ScoreSmallStraight = ScoreGroup(name: "Small Straight", selectState : false)
+        self.ScoreLargeStraight = ScoreGroup(name: "Large Straight", selectState : false)
+        self.ScoreYahtzee = ScoreGroup(name: "Yahtzee", selectState : false)
+        self.ScoreChance = ScoreGroup(name: "Chance", selectState : true)
+        
+        self.finalScoreP1 = 0
+        self.upperScoreP1 = 0
+        self.lowerScoreP1 = 0
+        self.finalScoreP2 = 0
+        self.upperScoreP2 = 0
+        self.lowerScoreP2 = 0
+        
+        self.playerName1 = "Player1"
+        }
+
     //Score sum functions
     func UpperCal() {
         if is2PlayerMode {
@@ -458,6 +503,7 @@ class GameState : ObservableObject {
                 && !ScoreThreeKind.isSelectable && !ScoreFourKind.isSelectable && !ScoreFullHouse.isSelectable
                 && !ScoreSmallStraight.isSelectable && !ScoreLargeStraight.isSelectable && !ScoreYahtzee.isSelectable
             {
+                print("DEBUG: No move")
                 if (isP2) {
                     if !ScoreAce.isFilled2 {
                         ScoreAce.currentValue = 0
@@ -506,6 +552,7 @@ class GameState : ObservableObject {
                     if !ScoreYahtzee.isFilled2 {
                         ScoreYahtzee.currentValue = 0
                         ScoreYahtzee.isSelectable = true
+                    }
                 } else {
                     if !ScoreAce.isFilled1 {
                         ScoreAce.currentValue = 0
@@ -544,21 +591,24 @@ class GameState : ObservableObject {
                         ScoreFullHouse.isSelectable = true
                     }
                     if !ScoreSmallStraight.isFilled1 {
+                        
                         ScoreSmallStraight.currentValue = 0
                         ScoreSmallStraight.isSelectable = true
                     }
                     if !ScoreLargeStraight.isFilled1 {
+                
                         ScoreLargeStraight.currentValue = 0
                         ScoreLargeStraight.isSelectable = true
                     }
                     if !ScoreYahtzee.isFilled1 {
+            
                         ScoreYahtzee.currentValue = 0
                         ScoreYahtzee.isSelectable = true
                     }
                 }
                 
                 }
-            }
+            
         }
     }
     

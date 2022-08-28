@@ -59,16 +59,18 @@ struct DiceRollView: View {
     // Basic function to change a dice status from free to kept. See func lockDice for the purpose of kept status.
     //If dice is already lock, the function end. If not, the function will change the status from free to lock and vice versa.
     func chooseDice(myDice: Dice) {
-        if (myDice.isLocked)
-        {}
+        
+        if (myDice.isLocked) {}
         else if (!myDice.isKept && myDice.value != 0) {
-            myDice.displayDiceOff()
             myDice.isKept = true
-            currentstate.cheatVar += 1 //A variable to force view to update
-        } else if (myDice.isKept){
             myDice.displayDice()
+            currentstate.cheatVar += 1 //A variable to force view to update
+            AudioManager.playSounds(soundfile: "Lock.mp3")
+        } else if (myDice.isKept){
             myDice.isKept = false
+            myDice.displayDice()
             currentstate.cheatVar += 1
+            AudioManager.playSounds(soundfile: "Lock.mp3")
         }
     }
     // Check if a dice is chosen as kept before rolling again, will lock the dice to prevent player from rolling the dice.
@@ -89,18 +91,18 @@ struct DiceRollView: View {
             currentstate.Dice5.isLocked = true
         }
     }
-    func animateDice(myDice : Dice, diceLocation : inout Float, diceRotation : inout Float){
-        if myDice.isLocked {
-            diceLocation = Float(-200)
-            diceRotation = Float(0)
-        } else if myDice.value != 0 {
-            diceLocation = Float(0)
-            diceRotation = Float(45)
-        } else if myDice.value == 0 {
-            diceLocation = Float(0)
-            diceRotation = Float(0)
-        }
-    }
+//    func animateDice(myDice : Dice, diceLocation : inout Float, diceRotation : inout Float){
+//        if myDice.isLocked {
+//            diceLocation = Float(-200)
+//            diceRotation = Float(0)
+//        } else if myDice.value != 0 {
+//            diceLocation = Float(0)
+//            diceRotation = Float(45)
+//        } else if myDice.value == 0 {
+//            diceLocation = Float(0)
+//            diceRotation = Float(0)
+//        }
+//    }
     func toggleEndGame() {
         if currentstate.isEndGame {
             isEndGame = true
@@ -124,12 +126,19 @@ struct DiceRollView: View {
     //VIEW BODY
     var body: some View {
         if isEndGame {
-            HSView(recordList: $recordList, gameState: currentstate, isRestart: $isRestart)
+            HSView(recordList: $recordList, gameState: currentstate, isRestart: $isRestart).onAppear(){
+                AudioManager.playSounds(soundfile: "yay.mp3")
+                print("DEBUG YAY")
+            }.onDisappear(){
+                //currentstate.fullReset()
+                isEndGame = false
+                print("DEBUG reset")
+            }
         } else {
             ZStack {
                 VStack {
                     VStack{
-                        Text("Current Turn: \(currentstate.turnNummber)")
+                        Text("Current Turn: \(currentstate.turnNumber)")
                         if (currentstate.is2PlayerMode) {
                             currentstate.isP2 ? Text("Player 2 Turn"):Text("Player 1 Turn")
                         }
@@ -147,8 +156,6 @@ struct DiceRollView: View {
                             Text("Please proceed to the score sheet")
                             
                         }
-                    }.fullScreenCover(isPresented: $currentstate.isEndGame) {
-                        
                     }
                     Spacer()
                     HStack {
@@ -176,15 +183,14 @@ struct DiceRollView: View {
                         Spacer()
                         //print("Debug check 4: " + String(Dice1.value))
                     }.onAppear(){
-                        currentstate.checkEndGame()
-                        print("END GAME?")
-                        debugFlags()
-                        isEndGame = currentstate.isEndGame
+                        AudioManager.playSounds(soundfile: "gameBGM.mp3")
+
                     }
                     Button {
                         //print("DEBUG Button")
                         //print(String(Dice1.value))
                         //print(Dice1.image)
+                        AudioManager.playSounds(soundfile: "dice.mp3")
                         currentstate.allDiceValue.removeAll()
                         lockDice()
                         rolldice()
@@ -193,8 +199,10 @@ struct DiceRollView: View {
                                                                       currentstate.Dice3.value,
                                                                       currentstate.Dice4.value,
                                                                       currentstate.Dice5.value])
-                        currentstate.numberOfRoll -= 1
-                        //currentstate.checkEndRoll()
+                        if currentstate.numberOfRoll > 0 {
+                            currentstate.numberOfRoll -= 1
+                        }
+                        currentstate.checkEndRoll()
                         let _ = print(currentstate.numberOfRoll)
                         currentstate.countDice()
                         currentstate.sumDiceValue(scoreboard: currentstate.ScoreChance)
@@ -221,7 +229,7 @@ struct DiceRollView: View {
                         print("Score LS check: \(currentstate.ScoreLargeStraight.isSelectable)")
                         print("Score Y check: \(currentstate.ScoreYahtzee.isSelectable)")
                         print("Score C check: \(currentstate.ScoreChance.isSelectable)")
-                        let _ = dump(currentstate.diceValueCount)
+                        dump(currentstate.diceValueCount)
                                 
                         //moveToScore()
                         //dump(allDiceValue)
@@ -230,6 +238,7 @@ struct DiceRollView: View {
                     }.buttonStyle(.bordered)
                     Button {
                         isOpenScoreSheet.toggle()
+                        AudioManager.playSounds(soundfile: "paper.mp3")
                     } label: {
                         Text("Open Score Board ✏️")
                         
@@ -237,16 +246,21 @@ struct DiceRollView: View {
                         ScoreSheetView(currentstate: currentstate, checkScoreSheet: $isOpenScoreSheet).onAppear(){
                             currentstate.countDice()
                             debugFlags()
+                        }.onDisappear(){
+                            currentstate.checkEndGame()
+                            print("END GAME?")
+                            debugFlags()
+                            isEndGame = currentstate.isEndGame
                         }
                     }.buttonStyle(.bordered)
-                    Button{
-                        isEndGame.toggle()
-                        isEndGame.toggle()
-                        isEndGame.toggle()
-                    } label: {
-                        Text("DEBUG Score")
-                    }
                     Spacer()
+                    Button {
+                        isEndGame.toggle()
+
+                    } label: {
+                        Text("DEBUG ENDGAME")
+                        
+                    }
                     Button {
                         isOpenInstruction.toggle()
 

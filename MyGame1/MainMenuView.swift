@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import AVFoundation
 
 struct MainMenuView: View {
     @State var isGameView: Bool = false
@@ -21,9 +22,14 @@ struct MainMenuView: View {
     var body: some View {
         ZStack {
             if isGameView {
-                DiceRollView(currentstate: GameState(isPlayer2: false, Player1: "Default Name", Player2: nil), isOpenScoreSheet: false, isRestart: $isGameView, recordList: $HighScoreList)
+                
+                DiceRollView(currentstate: GameState(isPlayer2: false, Player1: "Default Name", Player2: nil), isOpenScoreSheet: false, isRestart: $isGameView, recordList: $HighScoreList).onAppear(){
+                    
+                }
             } else if isGameView2P {
-                DiceRollView(currentstate: GameState(isPlayer2: true, Player1: "Default Name", Player2: "Default Opponent"), isOpenScoreSheet: false, isRestart: $isGameView2P, recordList: $HighScoreList)
+                DiceRollView(currentstate: GameState(isPlayer2: true, Player1: "Default Name", Player2: "Default Opponent"), isOpenScoreSheet: false, isRestart: $isGameView2P, recordList: $HighScoreList).onAppear(){
+                    
+                }
             } else
             {
                 VStack{
@@ -35,6 +41,8 @@ struct MainMenuView: View {
                     Text("MATCH HISTORY")
                     Button {isInstructionView.toggle()} label: {Text("How To Play")}.sheet(isPresented: $isInstructionView){
                         InstructionView()
+                    }.onAppear(){
+                        AudioManager.playSounds(soundfile: "mainMenuBGM.mp3")
                     }
                 }
             }

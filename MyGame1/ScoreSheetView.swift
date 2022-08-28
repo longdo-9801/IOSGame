@@ -29,6 +29,13 @@ struct ScoreSheetView: View {
                                    } label: {
                                        Text("Close Score Sheet")
                                    }
+                                   Button {
+                                    checkScoreSheet = false
+                                       currentstate.turnNumber += 5
+                                       
+                                   } label: {
+                                       Text("DEBUG Skip turn")
+                                   }
                                    //Display current Dice
                                    HStack {
                                        //Text(String(Dice1.value))
@@ -81,6 +88,13 @@ struct ScoreSheetView_Previews: PreviewProvider {
                                              dice5: 5,
                                              diceValue: [1,1,1,1,1,0])
     static var previews: some View {
-        ScoreSheetView(currentstate: debugState,checkScoreSheet: $debugBool)
+        ScoreSheetView(currentstate: debugState,checkScoreSheet: $debugBool).onAppear(){
+            debugState.sumDiceValue(scoreboard: debugState.ScoreChance)
+            debugState.upperGroupCheck()
+            debugState.checkDiceCombo()
+            debugState.checkDiceSequence()
+            debugState.checkNoMove()
+
+        }
     }
 }

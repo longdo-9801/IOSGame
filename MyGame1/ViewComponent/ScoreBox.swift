@@ -42,10 +42,11 @@ struct ScoreBoxView : View  {
                         inputScore(scoreGroup: scoreBoard)
                         self.displayPoint = String(scoreBoard.finalValue2)
                         self.textColor = .black
+                        AudioManager.playSounds(soundfile: "pencil.mp3")
                         GameState.resetState()
                         GameState.resetDiceCounter()
                         scoreBoard.isSelectable = false
-                        GameState.turnNummber += 1
+                        GameState.turnNumber += 1
                         GameState.checkEndGame()
                         isOpenScoreSheet = false
                     }
@@ -54,11 +55,12 @@ struct ScoreBoxView : View  {
                         inputScore(scoreGroup: scoreBoard)
                         self.displayPoint = String(scoreBoard.finalValue1)
                         self.textColor = .black
+                        AudioManager.playSounds(soundfile: "pencil.mp3")
                         GameState.resetState()
                         GameState.resetDiceCounter()
                         scoreBoard.isSelectable = false
                         if (!GameState.is2PlayerMode) {
-                            GameState.turnNummber += 1
+                            GameState.turnNumber += 1
                         } else {
                             GameState.isP2 = true
                         }
@@ -73,7 +75,6 @@ struct ScoreBoxView : View  {
             }.frame(alignment: .trailing).buttonStyle(.bordered)
             //Spacer()
         }.onAppear {
-            GameState.workaround += 1
             if (GameState.isP2) {
                 if (!scoreBoard.isSelectable && !scoreBoard.isFilled2) {
                     self.displayPoint = ""
