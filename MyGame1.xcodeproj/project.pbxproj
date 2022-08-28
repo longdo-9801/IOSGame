@@ -26,6 +26,7 @@
 		3D9B4CE428B8E31800A6300A /* EndGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9B4CE328B8E31800A6300A /* EndGameView.swift */; };
 		611AED1F28BA116500AC2A33 /* ResultBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 611AED1E28BA116500AC2A33 /* ResultBox.swift */; };
 		611AED2128BA5DE700AC2A33 /* PictureNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 611AED2028BA5DE700AC2A33 /* PictureNote.swift */; };
+		61D265A828BBBF9D00E24D94 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D265A728BBBF9D00E24D94 /* TestView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +50,7 @@
 		3D9B4CE328B8E31800A6300A /* EndGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndGameView.swift; sourceTree = "<group>"; };
 		611AED1E28BA116500AC2A33 /* ResultBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultBox.swift; sourceTree = "<group>"; };
 		611AED2028BA5DE700AC2A33 /* PictureNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureNote.swift; sourceTree = "<group>"; };
+		61D265A728BBBF9D00E24D94 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +96,7 @@
 				3D404BBD28AE0C2500900177 /* Assets.xcassets */,
 				3D404BBF28AE0C2500900177 /* Preview Content */,
 				3D9B4CE128B8DBA600A6300A /* SaveManager.swift */,
+				61D265A728BBBF9D00E24D94 /* TestView.swift */,
 			);
 			path = MyGame1;
 			sourceTree = "<group>";
@@ -204,6 +207,7 @@
 				3D6833F328B750A8008D4D66 /* GameData.swift in Sources */,
 				3D6833ED28B74DAA008D4D66 /* MainMenuView.swift in Sources */,
 				3D9B4CE428B8E31800A6300A /* EndGameView.swift in Sources */,
+				61D265A828BBBF9D00E24D94 /* TestView.swift in Sources */,
 				3D404BBC28AE0C2400900177 /* DiceRollView.swift in Sources */,
 				611AED2128BA5DE700AC2A33 /* PictureNote.swift in Sources */,
 				3D9B4CE028B8C48300A6300A /* ScoreTotalBox.swift in Sources */,

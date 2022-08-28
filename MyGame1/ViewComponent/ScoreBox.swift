@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ScoreBoxView : View {
+struct ScoreBoxView : View  {
     @State var displayPoint = ""
     @ObservedObject var scoreBoard : ScoreGroup
     @Binding var isOpenScoreSheet : Bool
@@ -38,32 +38,32 @@ struct ScoreBoxView : View {
             Spacer().frame(width: 30)
             Button {
                 if (GameState.isP2) {
-                    if (!scoreBoard.isFilled2 && isOpenScoreSheet && !GameState.isStart) {
+                    if (!scoreBoard.isFilled2 && isOpenScoreSheet && !GameState.isStart && scoreBoard.isSelectable) {
                         inputScore(scoreGroup: scoreBoard)
                         self.displayPoint = String(scoreBoard.finalValue2)
                         self.textColor = .black
-                        isOpenScoreSheet = false
                         GameState.resetState()
                         GameState.resetDiceCounter()
                         scoreBoard.isSelectable = false
                         GameState.turnNummber += 1
                         GameState.checkEndGame()
+                        isOpenScoreSheet = false
                     }
                 } else {
-                    if (!scoreBoard.isFilled1 && isOpenScoreSheet && !GameState.isStart) {
+                    if (!scoreBoard.isFilled1 && isOpenScoreSheet && !GameState.isStart && scoreBoard.isSelectable) {
                         inputScore(scoreGroup: scoreBoard)
                         self.displayPoint = String(scoreBoard.finalValue1)
                         self.textColor = .black
                         GameState.resetState()
                         GameState.resetDiceCounter()
-                        isOpenScoreSheet = false
                         scoreBoard.isSelectable = false
                         if (!GameState.is2PlayerMode) {
                             GameState.turnNummber += 1
                         } else {
                             GameState.isP2 = true
                         }
-                        
+                        GameState.checkEndGame()
+                        isOpenScoreSheet = false
                     }
                 }
                 
@@ -73,6 +73,7 @@ struct ScoreBoxView : View {
             }.frame(alignment: .trailing).buttonStyle(.bordered)
             //Spacer()
         }.onAppear {
+            GameState.workaround += 1
             if (GameState.isP2) {
                 if (!scoreBoard.isSelectable && !scoreBoard.isFilled2) {
                     self.displayPoint = ""

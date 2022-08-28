@@ -19,7 +19,7 @@ class GameState : ObservableObject {
     @Published var cheatVar: Int
     @Published var isStart : Bool
     @Published var isResetToggle : Bool
-    
+    @Published var workaround : Int = 0
     //Store Dice Value
     @Published var allDiceValue : Array<Int>
     @Published var diceValueCount : Array<Int>
@@ -30,6 +30,7 @@ class GameState : ObservableObject {
     @Published var Dice5 : Dice
     
     //Store Score Sheet data
+    ////Upper group
     @Published var ScoreAce : ScoreGroup
     @Published var ScoreTwo : ScoreGroup
     @Published var ScoreThree : ScoreGroup
@@ -37,7 +38,7 @@ class GameState : ObservableObject {
     @Published var ScoreFive : ScoreGroup
     @Published var ScoreSix : ScoreGroup
 
-    //Lower Score Group
+    ////Lower Score Group
     @Published var ScoreThreeKind : ScoreGroup
     @Published var ScoreFourKind : ScoreGroup
     @Published var ScoreFullHouse : ScoreGroup
@@ -274,6 +275,291 @@ class GameState : ObservableObject {
             finalScoreP1 += 35
         }
         
+    }
+    
+    /* Upper Group */
+    //Check if player have the valid dice and the board has not been filled
+    func upperGroupCheck() {
+        if (!ScoreAce.isFilled1 && diceValueCount[0] > 0) {
+            ScoreAce.isSelectable = true
+            ScoreAce.currentValue = 1 * diceValueCount[0]
+      }
+        if (!ScoreTwo.isFilled1 && diceValueCount[1] > 0) {
+            ScoreTwo.isSelectable = true
+            ScoreTwo.currentValue = 2 * diceValueCount[1]
+      }
+        if (!ScoreThree.isFilled1 && diceValueCount[2] > 0) {
+            ScoreThree.isSelectable = true
+            ScoreThree.currentValue = 3 * diceValueCount[2]
+      }
+        if (!ScoreFour.isFilled1 && diceValueCount[3] > 0) {
+            ScoreFour.isSelectable = true
+            ScoreFour.currentValue = 4 * diceValueCount[3]
+      }
+        if (!ScoreFive.isFilled1 && diceValueCount[4] > 0) {
+            ScoreFive.isSelectable = true
+            ScoreFive.currentValue = 5 * diceValueCount[4]
+      }
+        if (!ScoreSix.isFilled1 && diceValueCount[5] > 0) {
+            ScoreSix.isSelectable = true
+            ScoreSix.currentValue = 6 * diceValueCount[5]
+          
+      }
+    }
+    
+    /* Lower Group */
+    //Function check eligability for Three kind,Four kind, Yahtzee and Full House which require multiple dice with the same value.
+    func checkDiceCombo() {
+        if (isP2) {
+            for diceValue in diceValueCount {
+                if (diceValue == 5) {
+                if (!ScoreYahtzee.isFilled2) {
+                    ScoreYahtzee.isSelectable = true
+                    ScoreYahtzee.currentValue = 40
+                }
+                if (!ScoreThreeKind.isFilled2) {
+                    ScoreThreeKind.isSelectable = true
+                    sumDiceValue(scoreboard: ScoreThreeKind)
+                }
+                if (!ScoreFourKind.isFilled2) {
+                    ScoreFourKind.isSelectable = true
+                    sumDiceValue(scoreboard: ScoreFourKind)
+                }
+
+                } else if (diceValue == 4) {
+                if (!ScoreThreeKind.isFilled2) {
+                    ScoreThreeKind.isSelectable = true
+                    sumDiceValue(scoreboard: ScoreThreeKind)
+                }
+                if (!ScoreFourKind.isFilled2) {
+                    ScoreFourKind.isSelectable = true
+                    sumDiceValue(scoreboard: ScoreFourKind)
+                }
+
+                } else if (diceValue == 3) {
+                    if (!ScoreFullHouse.isFilled2) {
+                        for diceValue2 in diceValueCount {
+                            if (diceValue2 == 2) {
+                                ScoreFullHouse.isSelectable = true
+                                ScoreFullHouse.currentValue = 25
+                            }
+                        }
+                    }
+                    if (!ScoreThreeKind.isFilled2) {
+                        ScoreThreeKind.isSelectable = true
+                        sumDiceValue(scoreboard: ScoreThreeKind)
+                    }
+                }
+            }
+        } else {
+            for diceValue in diceValueCount {
+                if (diceValue == 5) {
+                if (!ScoreYahtzee.isFilled1) {
+                ScoreYahtzee.isSelectable = true
+                ScoreYahtzee.currentValue = 40
+                }
+                if (!ScoreThreeKind.isFilled1) {
+                    ScoreThreeKind.isSelectable = true
+                    sumDiceValue(scoreboard: ScoreThreeKind)
+                }
+                if (!ScoreFourKind.isFilled1) {
+                    ScoreFourKind.isSelectable = true
+                    sumDiceValue(scoreboard: ScoreFourKind)
+                }
+
+                } else if (diceValue == 4) {
+                if (!ScoreThreeKind.isFilled1) {
+                    ScoreThreeKind.isSelectable = true
+                    sumDiceValue(scoreboard: ScoreThreeKind)
+                }
+                if (!ScoreFourKind.isFilled1) {
+                    ScoreFourKind.isSelectable = true
+                    sumDiceValue(scoreboard: ScoreFourKind)
+                }
+
+                } else if (diceValue == 3) {
+                    if (!ScoreFullHouse.isFilled1) {
+                        for diceValue2 in diceValueCount {
+                            if (diceValue2 == 2) {
+                                ScoreFullHouse.isSelectable = true
+                                ScoreFullHouse.currentValue = 25
+                            }
+                        }
+                    }
+                    if (!ScoreThreeKind.isFilled1) {
+                        ScoreThreeKind.isSelectable = true
+                        sumDiceValue(scoreboard: ScoreThreeKind)
+                    }
+                }
+            }
+        }
+    }
+    //Function to check for Small and Large Straigth which require having four and five dices with sequential value (1-2-3-4 or 3-4-5-6,etc..) repsectively
+    func checkDiceSequence() {
+        // Logic check explanation: As the sum of all value count is always 5 and there must be at least one of four sequential dice value
+        //, if there are two values that appear twice, one of the remaining two value will be 0
+        // Example : if there are 2x I, 2x II then either IV or III is equal to 0 which will stop the logic check
+        if (isP2) {
+            if (!ScoreSmallStraight.isFilled2) {
+                if (diceValueCount[0]>=1 && diceValueCount[1]>=1 && diceValueCount[2]>=1 && diceValueCount[3]>=1)
+                    || (diceValueCount[1]>=1 && diceValueCount[2]>=1 && diceValueCount[3]>=1 && diceValueCount[4]>=1)
+                    || (diceValueCount[2]>=1 && diceValueCount[3]>=1 && diceValueCount[4]>=1 && diceValueCount[5]>=1)
+                {
+                    ScoreSmallStraight.isSelectable = true
+                    ScoreSmallStraight.currentValue = 30
+                }
+            }
+            // As the sequence must contain one each dice value, only a straight foward check of the value count of two possible sequence is needed
+            if (!ScoreLargeStraight.isFilled2) {
+                if (diceValueCount[0]==1 && diceValueCount[1]==1 && diceValueCount[2]==1 && diceValueCount[3]==1 && diceValueCount[4]==1)
+                    || (diceValueCount[1]==1 && diceValueCount[2]==1 && diceValueCount[3]==1 && diceValueCount[4]==1 && diceValueCount[5]==1)
+                {
+                    ScoreLargeStraight.isSelectable = true
+                    ScoreLargeStraight.currentValue = 40
+                }
+            }
+        } else {
+            if (!ScoreSmallStraight.isFilled1) {
+                if (diceValueCount[0]>=1 && diceValueCount[1]>=1 && diceValueCount[2]>=1 && diceValueCount[3]>=1)
+                    || (diceValueCount[1]>=1 && diceValueCount[2]>=1 && diceValueCount[3]>=1 && diceValueCount[4]>=1)
+                    || (diceValueCount[2]>=1 && diceValueCount[3]>=1 && diceValueCount[4]>=1 && diceValueCount[5]>=1)
+                {
+                    ScoreSmallStraight.isSelectable = true
+                    ScoreSmallStraight.currentValue = 30
+                }
+            }
+            // As the sequence must contain one each dice value, only a straight foward check of the value count of two possible sequence is needed
+            if (!ScoreLargeStraight.isFilled1) {
+                if (diceValueCount[0]==1 && diceValueCount[1]==1 && diceValueCount[2]==1 && diceValueCount[3]==1 && diceValueCount[4]==1)
+                    || (diceValueCount[1]==1 && diceValueCount[2]==1 && diceValueCount[3]==1 && diceValueCount[4]==1 && diceValueCount[5]==1)
+                {
+                    ScoreLargeStraight.isSelectable = true
+                    ScoreLargeStraight.currentValue = 40
+                }
+            }
+        }
+        
+    }
+    //Use to calculate the point for Three Kind , Four Kind and Chance
+    func sumDiceValue(scoreboard : ScoreGroup) {
+        scoreboard.currentValue =
+        1 * diceValueCount[0] + 2 * diceValueCount[1]
+      + 3 * diceValueCount[2] + 4 * diceValueCount[3]
+      + 5 * diceValueCount[4] + 6 * diceValueCount[5]
+    }
+    
+    //Check if player still have a valid move, if not "allow" player to input 0 into a valid scoreboard
+    func checkNoMove() {
+        if (ScoreChance.isSelectable) {
+            sumDiceValue(scoreboard: ScoreChance)
+        } else {
+            if !ScoreAce.isSelectable && !ScoreTwo.isSelectable && !ScoreThree.isSelectable
+                && !ScoreFour.isSelectable && !ScoreFive.isSelectable && !ScoreSix.isSelectable
+                && !ScoreThreeKind.isSelectable && !ScoreFourKind.isSelectable && !ScoreFullHouse.isSelectable
+                && !ScoreSmallStraight.isSelectable && !ScoreLargeStraight.isSelectable && !ScoreYahtzee.isSelectable
+            {
+                if (isP2) {
+                    if !ScoreAce.isFilled2 {
+                        ScoreAce.currentValue = 0
+                        ScoreAce.isSelectable = true
+                    }
+                    if !ScoreTwo.isFilled2 {
+                        ScoreTwo.currentValue = 0
+                        ScoreTwo.isSelectable = true
+                    }
+                    if !ScoreThree.isFilled2 {
+                        ScoreThree.currentValue = 0
+                        ScoreThree.isSelectable = true
+                    }
+                    if !ScoreFour.isFilled2 {
+                        ScoreFour.currentValue = 0
+                        ScoreFour.isSelectable = true
+                    }
+                    if !ScoreFive.isFilled2 {
+                        ScoreFive.currentValue = 0
+                        ScoreFive.isSelectable = true
+                    }
+                    if !ScoreSix.isFilled2 {
+                        ScoreSix.currentValue = 0
+                        ScoreSix.isSelectable = true
+                    }
+                    if !ScoreThreeKind.isFilled2 {
+                        ScoreThreeKind.currentValue = 0
+                        ScoreThreeKind.isSelectable = true
+                    }
+                    if !ScoreFourKind.isFilled2 {
+                        ScoreFourKind.currentValue = 0
+                        ScoreFourKind.isSelectable = true
+                    }
+                    if !ScoreFullHouse.isFilled2 {
+                        ScoreFullHouse.currentValue = 0
+                        ScoreFullHouse.isSelectable = true
+                    }
+                    if !ScoreSmallStraight.isFilled2 {
+                        ScoreSmallStraight.currentValue = 0
+                        ScoreSmallStraight.isSelectable = true
+                    }
+                    if !ScoreLargeStraight.isFilled2 {
+                        ScoreLargeStraight.currentValue = 0
+                        ScoreLargeStraight.isSelectable = true
+                    }
+                    if !ScoreYahtzee.isFilled2 {
+                        ScoreYahtzee.currentValue = 0
+                        ScoreYahtzee.isSelectable = true
+                } else {
+                    if !ScoreAce.isFilled1 {
+                        ScoreAce.currentValue = 0
+                        ScoreAce.isSelectable = true
+                    }
+                    if !ScoreTwo.isFilled1 {
+                        ScoreTwo.currentValue = 0
+                        ScoreTwo.isSelectable = true
+                    }
+                    if !ScoreThree.isFilled1 {
+                        ScoreThree.currentValue = 0
+                        ScoreThree.isSelectable = true
+                    }
+                    if !ScoreFour.isFilled1 {
+                        ScoreFour.currentValue = 0
+                        ScoreFour.isSelectable = true
+                    }
+                    if !ScoreFive.isFilled1 {
+                        ScoreFive.currentValue = 0
+                        ScoreFive.isSelectable = true
+                    }
+                    if !ScoreSix.isFilled1 {
+                        ScoreSix.currentValue = 0
+                        ScoreSix.isSelectable = true
+                    }
+                    if !ScoreThreeKind.isFilled1 {
+                        ScoreThreeKind.currentValue = 0
+                        ScoreThreeKind.isSelectable = true
+                    }
+                    if !ScoreFourKind.isFilled1 {
+                        ScoreFourKind.currentValue = 0
+                        ScoreFourKind.isSelectable = true
+                    }
+                    if !ScoreFullHouse.isFilled1 {
+                        ScoreFullHouse.currentValue = 0
+                        ScoreFullHouse.isSelectable = true
+                    }
+                    if !ScoreSmallStraight.isFilled1 {
+                        ScoreSmallStraight.currentValue = 0
+                        ScoreSmallStraight.isSelectable = true
+                    }
+                    if !ScoreLargeStraight.isFilled1 {
+                        ScoreLargeStraight.currentValue = 0
+                        ScoreLargeStraight.isSelectable = true
+                    }
+                    if !ScoreYahtzee.isFilled1 {
+                        ScoreYahtzee.currentValue = 0
+                        ScoreYahtzee.isSelectable = true
+                    }
+                }
+                
+                }
+            }
+        }
     }
     
     
