@@ -22,7 +22,7 @@ struct TestView: View {
     var body: some View {
         Button {
             print(">> tap up")
-            AudioManager.playSounds(soundfile: "dice.mp3")
+            EffectManager.playSounds(soundfile: "dice.mp3")
         } label: {
             Text("Audio")
         }

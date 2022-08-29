@@ -42,7 +42,7 @@ struct ScoreBoxView : View  {
                         inputScore(scoreGroup: scoreBoard)
                         self.displayPoint = String(scoreBoard.finalValue2)
                         self.textColor = .black
-                        AudioManager.playSounds(soundfile: "pencil.mp3")
+                        EffectManager.playSounds(soundfile: "pencil.mp3")
                         GameState.resetState()
                         GameState.resetDiceCounter()
                         scoreBoard.isSelectable = false
@@ -55,7 +55,7 @@ struct ScoreBoxView : View  {
                         inputScore(scoreGroup: scoreBoard)
                         self.displayPoint = String(scoreBoard.finalValue1)
                         self.textColor = .black
-                        AudioManager.playSounds(soundfile: "pencil.mp3")
+                        EffectManager.playSounds(soundfile: "pencil.mp3")
                         GameState.resetState()
                         GameState.resetDiceCounter()
                         scoreBoard.isSelectable = false

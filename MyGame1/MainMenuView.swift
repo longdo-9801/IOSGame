@@ -33,17 +33,23 @@ struct MainMenuView: View {
             } else
             {
                 VStack{
-                    Button {isGameView.toggle()} label: {Text("SINGLE PLAYER")}
-                    Button {/*isGameView2P.toggle()*/} label: {Text("TWO PLAYER - TBA")}
+                    Image("Logo")
+                    Image("LogoDice")
+                    Spacer()
+                    Button {isGameView.toggle()} label: {Text("SINGLE PLAYER")}.buttonStyle(.bordered)
+                    Button {/*isGameView2P.toggle()*/} label: {
+                        Text("TWO PLAYER - TBA").foregroundColor(.gray)
+                    }.buttonStyle(.bordered)
                     Button {isHighScoreView1.toggle()} label: {Text("HIGHSCORE")}.sheet(isPresented: $isHighScoreView1){
                         HSView(recordList: $HighScoreList, isRestart: $isHighScoreView1)
-                    }
-                    Text("MATCH HISTORY")
+                    }.buttonStyle(.bordered)
+                    Button{}label : {Text("MATCH HISTORY - TBA").foregroundColor(.gray)}.buttonStyle(.bordered)
                     Button {isInstructionView.toggle()} label: {Text("How To Play")}.sheet(isPresented: $isInstructionView){
                         InstructionView()
                     }.onAppear(){
-                        AudioManager.playSounds(soundfile: "mainMenuBGM.mp3")
-                    }
+                        MusicManager.playSounds(soundfile: "mainMenuBGM.mp3")
+                    }.buttonStyle(.bordered)
+                    Spacer()
                 }
             }
 

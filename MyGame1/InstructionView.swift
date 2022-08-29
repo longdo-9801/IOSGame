@@ -18,15 +18,15 @@ struct InstructionView: View {
     var body: some View {
         ScrollView{
             VStack{
-                Text("LOGO PLACEHOLDER").foregroundColor(.red)
+                Image("Logo").background(Color.white)
                 Text(
                     "Yahtzee is dice game invented by entrepreneur Edwin S. Lowe based on the popular Yacth dice game of the same format. As it most basic, player(s) require only five dices, pen and paper to play."
                 ).padding(.vertical)
-                PictureNote(imagePlaceholder: "Placeholder Picture of Actual Yahtzee", annotation: "Annotation")
+                PictureNote(image: "YathzeeGame", annotation: "An example of a physical Yathzee set")
                 Text("How To Play").font(.title).padding()
                 VStack{
                     Text("The game consist of two main screens, the **Dice roll screen** and the **Score sheet screen**")
-                    PictureNote(imagePlaceholder: "Placeholder Picture of the two screen", annotation: "Annotation")
+                    PictureNote(image: "LowerGroup", annotation: "The two main game screen")
                     Text("Each turn, the player roll the dices in the dice roll screen and use the results of their roll to fill the sheets. The game ends once they filled out all the categories in the score sheet.")
                     Text("Note for Yahtzee veteran: The game currently does not employ Joker rules.").padding(2).foregroundColor(.purple)
                     Button{
@@ -38,8 +38,8 @@ struct InstructionView: View {
                         VStack{
                             
                             Text("The player have three chances to roll their dices. The player can choose to keep a dice by tapping it which will lock the dice after they roll. If all five dices are locked or the player rolled three times they will automatically be taken to score sheet.")
-                            PictureNote(imagePlaceholder: "Placeholder Dice kept", annotation: "Annotation")
-                            PictureNote(imagePlaceholder: "Placeholder Dice lock", annotation: "Annotation")
+                            PictureNote(image: "Dice1", annotation: "The dice")
+                            PictureNote(image: "Dice1-Off", annotation: "The dice after being lock")
                         }
                     }
                     Button{
@@ -52,6 +52,7 @@ struct InstructionView: View {
                             
                             Text("The sheets consist of thirteen score categories which much be all filled to finish the game. The number beside the <Commit> button correspond with the score that can be filled in.")
                             VStack(alignment: .leading){
+                                PictureNote(image: "ScoreExample", annotation: "An example of a score sheet in session")
                                 Text("+ Black are numbers that are already filled.")
                                 Text("+ Grey are numbers that can be fill.")
                                 Text("+ Empty spots indicate that the corresponding categories can't be filled with that dice roll.")
@@ -70,7 +71,6 @@ struct InstructionView: View {
                                     Text("i.e [1] -> Ace, [2] -> Two and so on.")
                                     Text("The amount of points earn in each category corespond to the number of dice of that values.")
                                      Text("If the total score of the upper group is 63 the Player will earn a bonus +35 points")
-                                    PictureNote(imagePlaceholder: "Placeholder Picture of a dice and score", annotation: "Annotation")
                                 }
                             }
                             Button{
@@ -81,7 +81,8 @@ struct InstructionView: View {
                             if collapseSection4 {
                                 VStack{
                                     Text("The Lower groups consist of seven categories each with own rules")
-                                    PictureNote(imagePlaceholder: "Placeholder Picture Wikipedia", annotation: "Annotation")
+                                    PictureNote(image: "LowerGroup", annotation: "An example of a Lower Groups scoring.")
+                                    Text("Source: [Wikipedia](https://en.wikipedia.org/wiki/Yahtzee#Rules)").foregroundColor(.gray)
                                     VStack{
                                         Group{
                                             Text("+ Three of a kind")
@@ -112,9 +113,6 @@ struct InstructionView: View {
                                             Text("A free slot. Player can fill this slot with the sum of all five dices  ").multilineTextAlignment(.leading)
                                         }.padding(.all,1)
                                     }
-                                    
-                                    
-                                    PictureNote(imagePlaceholder: "Placeholder Picture of a dice and score", annotation: "Annotation")
                             }
                             
                             

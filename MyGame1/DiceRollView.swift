@@ -65,12 +65,12 @@ struct DiceRollView: View {
             myDice.isKept = true
             myDice.displayDice()
             currentstate.cheatVar += 1 //A variable to force view to update
-            AudioManager.playSounds(soundfile: "Lock.mp3")
+            EffectManager.playSounds(soundfile: "Lock.mp3")
         } else if (myDice.isKept){
             myDice.isKept = false
             myDice.displayDice()
             currentstate.cheatVar += 1
-            AudioManager.playSounds(soundfile: "Lock.mp3")
+            EffectManager.playSounds(soundfile: "Lock.mp3")
         }
     }
     // Check if a dice is chosen as kept before rolling again, will lock the dice to prevent player from rolling the dice.
@@ -127,7 +127,7 @@ struct DiceRollView: View {
     var body: some View {
         if isEndGame {
             HSView(recordList: $recordList, gameState: currentstate, isRestart: $isRestart).onAppear(){
-                AudioManager.playSounds(soundfile: "yay.mp3")
+                EffectManager.playSounds(soundfile: "yay.mp3")
                 print("DEBUG YAY")
             }.onDisappear(){
                 //currentstate.fullReset()
@@ -183,14 +183,14 @@ struct DiceRollView: View {
                         Spacer()
                         //print("Debug check 4: " + String(Dice1.value))
                     }.onAppear(){
-                        AudioManager.playSounds(soundfile: "gameBGM.mp3")
+                        MusicManager.playSounds(soundfile: "gameBGM.mp3")
 
                     }
                     Button {
                         //print("DEBUG Button")
                         //print(String(Dice1.value))
                         //print(Dice1.image)
-                        AudioManager.playSounds(soundfile: "dice.mp3")
+                        EffectManager.playSounds(soundfile: "dice.mp3")
                         currentstate.allDiceValue.removeAll()
                         lockDice()
                         rolldice()
@@ -238,7 +238,7 @@ struct DiceRollView: View {
                     }.buttonStyle(.bordered)
                     Button {
                         isOpenScoreSheet.toggle()
-                        AudioManager.playSounds(soundfile: "paper.mp3")
+                        EffectManager.playSounds(soundfile: "paper.mp3")
                     } label: {
                         Text("Open Score Board ✏️")
                         

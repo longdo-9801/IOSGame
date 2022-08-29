@@ -25,16 +25,15 @@
 		3D9B4CE228B8DBA600A6300A /* SaveManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9B4CE128B8DBA600A6300A /* SaveManager.swift */; };
 		3D9B4CE428B8E31800A6300A /* EndGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9B4CE328B8E31800A6300A /* EndGameView.swift */; };
 		6102253D28BBE98B0026C74A /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6102253C28BBE98A0026C74A /* AudioManager.swift */; };
-		6102254728BBF6530026C74A /* dice.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6102253F28BBF6520026C74A /* dice.mp3 */; };
-		6102254828BBF6530026C74A /* Sound.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6102254028BBF6520026C74A /* Sound.txt */; };
-		6102254928BBF6530026C74A /* mainMenuBGM.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6102254128BBF6530026C74A /* mainMenuBGM.mp3 */; };
-		6102254A28BBF6530026C74A /* yay.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6102254228BBF6530026C74A /* yay.mp3 */; };
-		6102254B28BBF6530026C74A /* pencil.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6102254328BBF6530026C74A /* pencil.mp3 */; };
-		6102254C28BBF6530026C74A /* paper.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6102254428BBF6530026C74A /* paper.mp3 */; };
-		6102254D28BBF6530026C74A /* gameBGM.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6102254528BBF6530026C74A /* gameBGM.mp3 */; };
-		6102254E28BBF6530026C74A /* Lock.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6102254628BBF6530026C74A /* Lock.mp3 */; };
 		611AED1F28BA116500AC2A33 /* ResultBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 611AED1E28BA116500AC2A33 /* ResultBox.swift */; };
 		611AED2128BA5DE700AC2A33 /* PictureNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 611AED2028BA5DE700AC2A33 /* PictureNote.swift */; };
+		6125629128BCD2A100939479 /* pencil.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6125628A28BCD2A100939479 /* pencil.mp3 */; };
+		6125629228BCD2A100939479 /* gameBGM.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6125628B28BCD2A100939479 /* gameBGM.mp3 */; };
+		6125629328BCD2A100939479 /* mainMenuBGM.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6125628C28BCD2A100939479 /* mainMenuBGM.mp3 */; };
+		6125629428BCD2A100939479 /* yay.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6125628D28BCD2A100939479 /* yay.mp3 */; };
+		6125629528BCD2A100939479 /* dice.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6125628E28BCD2A100939479 /* dice.mp3 */; };
+		6125629628BCD2A100939479 /* paper.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6125628F28BCD2A100939479 /* paper.mp3 */; };
+		6125629728BCD2A100939479 /* Lock.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6125629028BCD2A100939479 /* Lock.mp3 */; };
 		61D265A828BBBF9D00E24D94 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D265A728BBBF9D00E24D94 /* TestView.swift */; };
 /* End PBXBuildFile section */
 
@@ -58,16 +57,15 @@
 		3D9B4CE128B8DBA600A6300A /* SaveManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveManager.swift; sourceTree = "<group>"; };
 		3D9B4CE328B8E31800A6300A /* EndGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndGameView.swift; sourceTree = "<group>"; };
 		6102253C28BBE98A0026C74A /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
-		6102253F28BBF6520026C74A /* dice.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = dice.mp3; path = ../../../../../Downloads/sound/dice.mp3; sourceTree = "<group>"; };
-		6102254028BBF6520026C74A /* Sound.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Sound.txt; path = ../../../../../Downloads/sound/Sound.txt; sourceTree = "<group>"; };
-		6102254128BBF6530026C74A /* mainMenuBGM.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = mainMenuBGM.mp3; path = ../../../../../Downloads/sound/mainMenuBGM.mp3; sourceTree = "<group>"; };
-		6102254228BBF6530026C74A /* yay.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = yay.mp3; path = ../../../../../Downloads/sound/yay.mp3; sourceTree = "<group>"; };
-		6102254328BBF6530026C74A /* pencil.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = pencil.mp3; path = ../../../../../Downloads/sound/pencil.mp3; sourceTree = "<group>"; };
-		6102254428BBF6530026C74A /* paper.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = paper.mp3; path = ../../../../../Downloads/sound/paper.mp3; sourceTree = "<group>"; };
-		6102254528BBF6530026C74A /* gameBGM.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = gameBGM.mp3; path = ../../../../../Downloads/sound/gameBGM.mp3; sourceTree = "<group>"; };
-		6102254628BBF6530026C74A /* Lock.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Lock.mp3; path = ../../../../../Downloads/sound/Lock.mp3; sourceTree = "<group>"; };
 		611AED1E28BA116500AC2A33 /* ResultBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultBox.swift; sourceTree = "<group>"; };
 		611AED2028BA5DE700AC2A33 /* PictureNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureNote.swift; sourceTree = "<group>"; };
+		6125628A28BCD2A100939479 /* pencil.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = pencil.mp3; path = ../../../../Downloads/sound/pencil.mp3; sourceTree = "<group>"; };
+		6125628B28BCD2A100939479 /* gameBGM.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = gameBGM.mp3; path = ../../../../Downloads/sound/gameBGM.mp3; sourceTree = "<group>"; };
+		6125628C28BCD2A100939479 /* mainMenuBGM.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = mainMenuBGM.mp3; path = ../../../../Downloads/sound/mainMenuBGM.mp3; sourceTree = "<group>"; };
+		6125628D28BCD2A100939479 /* yay.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = yay.mp3; path = ../../../../Downloads/sound/yay.mp3; sourceTree = "<group>"; };
+		6125628E28BCD2A100939479 /* dice.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = dice.mp3; path = ../../../../Downloads/sound/dice.mp3; sourceTree = "<group>"; };
+		6125628F28BCD2A100939479 /* paper.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = paper.mp3; path = ../../../../Downloads/sound/paper.mp3; sourceTree = "<group>"; };
+		6125629028BCD2A100939479 /* Lock.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Lock.mp3; path = ../../../../Downloads/sound/Lock.mp3; sourceTree = "<group>"; };
 		61D265A728BBBF9D00E24D94 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -109,9 +107,11 @@
 				3D6833EE28B74DB8008D4D66 /* HighScoreView.swift */,
 				3D6833F028B74DC6008D4D66 /* MatchView.swift */,
 				3D9B4CE328B8E31800A6300A /* EndGameView.swift */,
+				6125628928BCD01600939479 /* Controller */,
 				3D6833E928B74C32008D4D66 /* ViewComponent */,
 				3D6833DE28B743E5008D4D66 /* Model */,
 				3D404BBD28AE0C2500900177 /* Assets.xcassets */,
+				6102253E28BBF60F0026C74A /* SOund */,
 				3D404BBF28AE0C2500900177 /* Preview Content */,
 				3D9B4CE128B8DBA600A6300A /* SaveManager.swift */,
 				61D265A728BBBF9D00E24D94 /* TestView.swift */,
@@ -132,10 +132,7 @@
 			children = (
 				3D9B4CD628B89B1C00A6300A /* Dice.swift */,
 				3D9B4CD528B89B1C00A6300A /* ScoreGroup.swift */,
-				3D6833F228B750A8008D4D66 /* GameData.swift */,
 				3D9B4CD928B89B5C00A6300A /* MatchRecord.swift */,
-				6102253C28BBE98A0026C74A /* AudioManager.swift */,
-				6102253E28BBF60F0026C74A /* SOund */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -154,16 +151,24 @@
 		6102253E28BBF60F0026C74A /* SOund */ = {
 			isa = PBXGroup;
 			children = (
-				6102253F28BBF6520026C74A /* dice.mp3 */,
-				6102254528BBF6530026C74A /* gameBGM.mp3 */,
-				6102254628BBF6530026C74A /* Lock.mp3 */,
-				6102254128BBF6530026C74A /* mainMenuBGM.mp3 */,
-				6102254428BBF6530026C74A /* paper.mp3 */,
-				6102254328BBF6530026C74A /* pencil.mp3 */,
-				6102254028BBF6520026C74A /* Sound.txt */,
-				6102254228BBF6530026C74A /* yay.mp3 */,
+				6125628E28BCD2A100939479 /* dice.mp3 */,
+				6125628B28BCD2A100939479 /* gameBGM.mp3 */,
+				6125629028BCD2A100939479 /* Lock.mp3 */,
+				6125628C28BCD2A100939479 /* mainMenuBGM.mp3 */,
+				6125628F28BCD2A100939479 /* paper.mp3 */,
+				6125628A28BCD2A100939479 /* pencil.mp3 */,
+				6125628D28BCD2A100939479 /* yay.mp3 */,
 			);
 			path = SOund;
+			sourceTree = "<group>";
+		};
+		6125628928BCD01600939479 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				3D6833F228B750A8008D4D66 /* GameData.swift */,
+				6102253C28BBE98A0026C74A /* AudioManager.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -224,16 +229,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6102254B28BBF6530026C74A /* pencil.mp3 in Resources */,
-				6102254A28BBF6530026C74A /* yay.mp3 in Resources */,
-				6102254828BBF6530026C74A /* Sound.txt in Resources */,
+				6125629728BCD2A100939479 /* Lock.mp3 in Resources */,
+				6125629428BCD2A100939479 /* yay.mp3 in Resources */,
+				6125629128BCD2A100939479 /* pencil.mp3 in Resources */,
+				6125629228BCD2A100939479 /* gameBGM.mp3 in Resources */,
+				6125629328BCD2A100939479 /* mainMenuBGM.mp3 in Resources */,
 				3D404BC128AE0C2500900177 /* Preview Assets.xcassets in Resources */,
-				6102254928BBF6530026C74A /* mainMenuBGM.mp3 in Resources */,
-				6102254D28BBF6530026C74A /* gameBGM.mp3 in Resources */,
+				6125629528BCD2A100939479 /* dice.mp3 in Resources */,
 				3D404BBE28AE0C2500900177 /* Assets.xcassets in Resources */,
-				6102254E28BBF6530026C74A /* Lock.mp3 in Resources */,
-				6102254728BBF6530026C74A /* dice.mp3 in Resources */,
-				6102254C28BBF6530026C74A /* paper.mp3 in Resources */,
+				6125629628BCD2A100939479 /* paper.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -388,17 +392,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MyGame1/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.board-games";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -417,17 +422,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MyGame1/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.board-games";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

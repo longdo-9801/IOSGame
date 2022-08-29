@@ -34,7 +34,6 @@ struct HSView : View {
                         print(gameState!.finalScoreP1)
                         addNewRecord()
                         gameState?.isEndGame = false
-                        AudioManager.playSounds(soundfile: "yay.mp3")
                     }
                 }
                 Button {
