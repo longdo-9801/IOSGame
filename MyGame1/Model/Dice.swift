@@ -8,6 +8,7 @@
 import Foundation
 import CoreImage
 
+//class to create a dice
 class Dice : ObservableObject {
     init(id: Int, value:Int, image:String) {
         self.ID = id
@@ -22,11 +23,9 @@ class Dice : ObservableObject {
     @Published var isKept : Bool
     @Published var isLocked: Bool
     
-    //Function to change dice visual to free variant
-    func displayDice() {
-        //print("DEBUG CHECK IMAGE 1: " + myDice.image)
+    //Function to change dice visual
+    func displayDice() { //Change dice to black variant if is kept
         if self.isKept {
-                //print("DEBUG CHECK IMAGE 1: " + myDice.image)
             switch  self.value {
             case 1:
                 self.image = "Dice1-Off"
@@ -45,7 +44,7 @@ class Dice : ObservableObject {
                 self.image = "DiceDefault"
                 print("Dice Value Error")
             }
-        } else {
+        } else { //Change dice to white variant if not
             switch  self.value {
             case 1:
                 self.image = "Dice1"
@@ -66,10 +65,6 @@ class Dice : ObservableObject {
             }
         }
         
-        //print("DEBUG CHECK IMAGE 2: " + myDice.image)
-    //Function to change dice visual to lock variant
-
-        //print("DEBUG CHECK IMAGE 2: " + myDice.image)
     }
     
     func resetDice() {

@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+//View meant to display a picture along side an annotation.
 struct PictureNote: View {
     @State var image : String
     //@State var imagePlaceholder : String

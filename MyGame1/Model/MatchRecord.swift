@@ -7,6 +7,7 @@
 
 import Foundation
 
+//Unfinished code meant to make the object saveable into UserDefaullt
 class MatchRecordSaveVer : NSObject, NSCoding {
     @Published var timeID : Date
     @Published var playerName: String
@@ -36,7 +37,7 @@ class MatchRecordSaveVer : NSObject, NSCoding {
         aCoder.encode(finalScore, forKey: "score")
     }
 }
-
+//Save data for 1P mode, is display by ResultBoxView
 class MatchRecord1P : Identifiable {
     @Published var timeID : Date
     @Published var playerName1: String
@@ -53,6 +54,7 @@ class MatchRecord1P : Identifiable {
         self.finalScoreP1 = score1
     }
 }
+//Save data for 2P mode, no view to display this object is implemented yet
 class MatchRecord2P {
     @Published var timeID : Date
     @Published var playerName1: String

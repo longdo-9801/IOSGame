@@ -8,9 +8,11 @@
 import Foundation
 import AVFoundation
 
+//For playing music
 class MusicManager {
     static var audioPlayer:AVAudioPlayer?
 
+    
        static func playSounds(soundfile: String) {
 
            if let path = Bundle.main.path(forResource: soundfile, ofType: nil){
@@ -34,7 +36,7 @@ class MusicManager {
            }
        }
 }
-
+//For playing sound effect
 class EffectManager {
     static var audioPlayer:AVAudioPlayer?
 

@@ -21,25 +21,25 @@ struct ScoreSheetView: View {
                        ScrollView {
                           ZStack {
                                VStack {
+                                   //Button to close Score Sheet, only work in DiceRoll and above view
                                    Button {
                                        if(!currentstate.isEndRoll) {
+                                           EffectManager.playSounds(soundfile: "paper.mp3")
                                            checkScoreSheet = false
                                            currentstate.resetDiceCounter()
                                        }
                                    } label: {
                                        Text("Close Score Sheet")
                                    }
-                                   Button {
-                                    checkScoreSheet = false
-                                       currentstate.turnNumber += 5
-                                       
-                                   } label: {
-                                       Text("DEBUG Skip turn")
-                                   }
+                                   //Button to test the automatic end game function, add 5 turn to gamestate, game end if turn number is more than 13, uncomment to enable
+//                                   Button {
+//                                    checkScoreSheet = false
+//                                       currentstate.turnNumber += 5
+//                                   } label: {
+//                                       Text("DEBUG Skip turn")
+//                                   }
                                    //Display current Dice
                                    HStack {
-                                       //Text(String(Dice1.value))
-                                       //print("Debug check 3: " + String(Dice1.value))
                                        Spacer()
                                        Image(currentstate.Dice1.image)
                                        Image(currentstate.Dice2.image)
@@ -47,9 +47,9 @@ struct ScoreSheetView: View {
                                        Image(currentstate.Dice4.image)
                                        Image(currentstate.Dice5.image)
                                        Spacer()
-                                       //print("Debug check 4: " + String(Dice1.value))
                                    }
-                                   //Upper Group
+                                   //Display all score group
+                                   ////Upper Group
                                    VStack {
                                        Text("Upper Point Group")
                                        ScoreBoxView(scoreBoard: currentstate.ScoreAce, isOpenScoreSheet: $checkScoreSheet,GameState: currentstate)
@@ -60,7 +60,8 @@ struct ScoreSheetView: View {
                                        ScoreBoxView(scoreBoard: currentstate.ScoreSix, isOpenScoreSheet: $checkScoreSheet, GameState: currentstate)
                                        ScoreTotalBoxView(GameState: currentstate, isUpper: true)
                                    }
-//                                   Divider()
+                                   Divider()
+                                   //LowerGroup
                                    VStack {
                                        Text("Lower Point Group")
                                        ScoreBoxView(scoreBoard: currentstate.ScoreThreeKind, isOpenScoreSheet: $checkScoreSheet, GameState: currentstate)
@@ -88,6 +89,7 @@ struct ScoreSheetView_Previews: PreviewProvider {
                                              dice5: 5,
                                              diceValue: [1,1,1,1,1,0])
     static var previews: some View {
+        //Preview meant to show game logic, current dice value garrunteed small straight and large straight.
         ScoreSheetView(currentstate: debugState,checkScoreSheet: $debugBool).onAppear(){
             debugState.sumDiceValue(scoreboard: debugState.ScoreChance)
             debugState.upperGroupCheck()

@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+//To show the total score of each groups of score
 struct ScoreTotalBoxView : View {
     @State var displayPoint = "0"
     @State var displayName = ""
@@ -14,7 +15,7 @@ struct ScoreTotalBoxView : View {
     @State var textColor : Color = .gray
     @State var isUpper: Bool
     
-    
+    //Use to check if all upper group are filled, supposed to turn the text black, not working
     func UpperCheckAllFill(){
         if GameState.isP2 {
             if GameState.ScoreAce.isFilled2 && GameState.ScoreTwo.isFilled2
@@ -38,6 +39,7 @@ struct ScoreTotalBoxView : View {
         }
         
     }
+    //Use to check if all lower group are filled, supposed to turn the text black, not working
     func LowerCheckAllFill(){
         if GameState.isP2 {
             if GameState.ScoreThreeKind.isFilled2 && GameState.ScoreFourKind.isFilled2
@@ -57,7 +59,7 @@ struct ScoreTotalBoxView : View {
         }
         
     }
-    
+    //Update the value of score
     func display(){
         if GameState.isP2 {
             if isUpper {

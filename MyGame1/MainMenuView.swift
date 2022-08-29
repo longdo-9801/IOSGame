@@ -50,6 +50,7 @@ struct MainMenuView: View {
                         MusicManager.playSounds(soundfile: "mainMenuBGM.mp3")
                     }.buttonStyle(.bordered)
                     Spacer()
+                    Text("Game by Do Ha Minh Long - S3634734")
                 }
             }
 

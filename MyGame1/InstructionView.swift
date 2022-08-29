@@ -10,6 +10,7 @@ import SwiftUI
 
 
 struct InstructionView: View {
+    //Variable to collapse part of the text to make it less intimidating
     @State var collapseSection1 : Bool = false
     @State var collapseSection2 : Bool = false
     @State var collapseSection3 : Bool = false
@@ -26,7 +27,11 @@ struct InstructionView: View {
                 Text("How To Play").font(.title).padding()
                 VStack{
                     Text("The game consist of two main screens, the **Dice roll screen** and the **Score sheet screen**")
-                    PictureNote(image: "LowerGroup", annotation: "The two main game screen")
+                    HStack {
+                        Image("ScreenShot1").resizable().scaledToFit()
+                        Image("ScreenShot2").resizable().scaledToFit()
+                    }.frame(width: 300,height: 300)
+                    Text("The two main screen of the game").foregroundColor(.gray).baselineOffset(2).padding(.bottom,1)
                     Text("Each turn, the player roll the dices in the dice roll screen and use the results of their roll to fill the sheets. The game ends once they filled out all the categories in the score sheet.")
                     Text("Note for Yahtzee veteran: The game currently does not employ Joker rules.").padding(2).foregroundColor(.purple)
                     Button{
@@ -37,7 +42,7 @@ struct InstructionView: View {
                     if collapseSection1 {
                         VStack{
                             
-                            Text("The player have three chances to roll their dices. The player can choose to keep a dice by tapping it which will lock the dice after they roll. If all five dices are locked or the player rolled three times they will automatically be taken to score sheet.")
+                            Text("The player have three chances to roll their dices. The player can choose to keep a dice by tapping it which will lock the dice after they roll. If all five dices are locked or the player rolled three times they will be unable to roll any more.")
                             PictureNote(image: "Dice1", annotation: "The dice")
                             PictureNote(image: "Dice1-Off", annotation: "The dice after being lock")
                         }
@@ -51,8 +56,8 @@ struct InstructionView: View {
                         VStack{
                             
                             Text("The sheets consist of thirteen score categories which much be all filled to finish the game. The number beside the <Commit> button correspond with the score that can be filled in.")
+                            PictureNote(image: "ScoreExample", annotation: "An example of a score sheet in session")
                             VStack(alignment: .leading){
-                                PictureNote(image: "ScoreExample", annotation: "An example of a score sheet in session")
                                 Text("+ Black are numbers that are already filled.")
                                 Text("+ Grey are numbers that can be fill.")
                                 Text("+ Empty spots indicate that the corresponding categories can't be filled with that dice roll.")

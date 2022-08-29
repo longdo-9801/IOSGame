@@ -138,12 +138,15 @@ struct DiceRollView: View {
             ZStack {
                 VStack {
                     VStack{
+                        //Top Text show the turn number, last turn is 13
                         Text("Current Turn: \(currentstate.turnNumber)")
+                        //Text for 2Player Mode, show which player is playing
                         if (currentstate.is2PlayerMode) {
                             currentstate.isP2 ? Text("Player 2 Turn"):Text("Player 1 Turn")
                         }
                     }
                     VStack {
+                        //Show the remaining row in the current turn
                         Text("Remaining Roll(s): \(currentstate.numberOfRoll)")
                         if (currentstate.isEndRoll
                                     || ((currentstate.Dice1.isLocked)
@@ -154,26 +157,12 @@ struct DiceRollView: View {
                                        )
                             ) {
                             Text("Please proceed to the score sheet")
-                            
+    
                         }
                     }
                     Spacer()
-                    HStack {
-                        //Text(String(Dice1.value))
-                        //print("Debug check 3: " + String(Dice1.value))
+                    HStack {//Dice area
                         Spacer()
-//                        Button {
-//                            print("\(currentstate.Dice1.isKept)")
-//                            chooseDice(myDice: currentstate.Dice1)
-//                            print("\(currentstate.Dice1.isKept)")
-//                            animateDice(myDice: currentstate.Dice1,
-//                                        diceLocation: &dice1Location,
-//                                        diceRotation: &dice1Rotation)
-//                        } label: {
-//                            Image(currentstate.Dice1.image)
-//                        }.rotationEffect(Angle(degrees: Double(dice1Rotation)))
-//                            .offset(y: CGFloat(dice1Location))
-//                            .animation(.easeInOut(duration: 1.0))
                         Button {chooseDice(myDice: currentstate.Dice1)} label: {Image(currentstate.Dice1.image)}
                         Button {chooseDice(myDice: currentstate.Dice2)} label: {Image(currentstate.Dice2.image)}
                         Button {chooseDice(myDice: currentstate.Dice3)} label: {Image(currentstate.Dice3.image)}
@@ -181,29 +170,31 @@ struct DiceRollView: View {
                         Button {chooseDice(myDice: currentstate.Dice5)} label: {Image(currentstate.Dice5.image)}
                         
                         Spacer()
-                        //print("Debug check 4: " + String(Dice1.value))
                     }.onAppear(){
+                        //Gameplay BGM
                         MusicManager.playSounds(soundfile: "gameBGM.mp3")
-
                     }
                     Button {
-                        //print("DEBUG Button")
-                        //print(String(Dice1.value))
-                        //print(Dice1.image)
+                        //Play dice sound when player click roll
                         EffectManager.playSounds(soundfile: "dice.mp3")
-                        currentstate.allDiceValue.removeAll()
-                        lockDice()
-                        rolldice()
-                        currentstate.allDiceValue.append(contentsOf: [currentstate.Dice1.value,
-                                                                      currentstate.Dice2.value,
-                                                                      currentstate.Dice3.value,
-                                                                      currentstate.Dice4.value,
-                                                                      currentstate.Dice5.value])
                         if currentstate.numberOfRoll > 0 {
-                            currentstate.numberOfRoll -= 1
+                            //Disable dice rolling functionality if no more roll are available
+                            currentstate.allDiceValue.removeAll()
+                            lockDice()
+                            rolldice()
+                            currentstate.allDiceValue.append(contentsOf: [currentstate.Dice1.value,
+                                                                          currentstate.Dice2.value,
+                                                                          currentstate.Dice3.value,
+                                                                          currentstate.Dice4.value,
+                                                                          currentstate.Dice5.value])
+                            if currentstate.numberOfRoll > 0 {
+                                currentstate.numberOfRoll -= 1
                         }
+
+                        }
+                        //Dice value counter and scoring validator
+                        //Place here to ensure ScoreSheetView can render and update all data on appear each time
                         currentstate.checkEndRoll()
-                        let _ = print(currentstate.numberOfRoll)
                         currentstate.countDice()
                         currentstate.sumDiceValue(scoreboard: currentstate.ScoreChance)
                         currentstate.upperGroupCheck()
@@ -230,9 +221,6 @@ struct DiceRollView: View {
                         print("Score Y check: \(currentstate.ScoreYahtzee.isSelectable)")
                         print("Score C check: \(currentstate.ScoreChance.isSelectable)")
                         dump(currentstate.diceValueCount)
-                                
-                        //moveToScore()
-                        //dump(allDiceValue)
                     } label: {
                         Text("Roll Dice 🎲")
                     }.buttonStyle(.bordered)
@@ -254,19 +242,19 @@ struct DiceRollView: View {
                         }
                     }.buttonStyle(.bordered)
                     Spacer()
-                    Button {
-                        isEndGame.toggle()
-
-                    } label: {
-                        Text("DEBUG ENDGAME")
-                        
-                    }
+                    //DEBUG Button to launch the high score view without needing to play through the full game, uncomment to enable
+//                    Button {
+//                        isEndGame.toggle()
+//
+//                    } label: {
+//                        Text("DEBUG ENDGAME")
+//
+//                    }
+                    //Open instruction view as a collapsable sheet
                     Button {
                         isOpenInstruction.toggle()
-
                     } label: {
                         Text("Open Instruction 📘")
-                        
                     }.sheet(isPresented: $isOpenInstruction){
                         InstructionView()
                     }
@@ -288,11 +276,10 @@ struct DiceRollView_Previews: PreviewProvider {
     static var previews: some View {
         Group
         {
+            //Preview for 1 player mode
             DiceRollView(currentstate: GameState(isPlayer2: false,Player1: "Default",Player2: ""), isRestart: $debugBool2, recordList: $previewList)
+            /* Preview for 2 player mode,  playable */
             //DiceRollView(currentstate: GameState(isPlayer2: true,Player1: "Default",Player2: "Default2"), recordList: $previewList)
         }
-
-//            .preferredColorScheme(.light)
-//            .previewInterfaceOrientation(.portrait)
     }
 }

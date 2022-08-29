@@ -12,14 +12,6 @@ struct HSView : View {
     @State var gameState : GameState? = nil
     @Binding var isRestart : Bool
     
-//    init(list : Array<MatchRecord1P>) {
-//        self.recordList = list
-//    }
-//
-//    init(list : Array<MatchRecord1P>, gameState : GameState) {
-//        self.recordList = list
-//        self.gameState = gameState
-//    }
     
     func addNewRecord() {
         recordList.append(MatchRecord1P(name1: "Default", score1: gameState?.finalScoreP1 ?? 0))
@@ -30,6 +22,7 @@ struct HSView : View {
         ZStack {
             VStack{
                 Text("Play Record").onAppear(){
+                    //Add new record if lauch from DiceRollView
                     if (gameState != nil) {
                         print(gameState!.finalScoreP1)
                         addNewRecord()
@@ -37,6 +30,7 @@ struct HSView : View {
                     }
                 }
                 Button {
+                    //Toggle to launch/close view
                     isRestart.toggle()
                 } label: {
                     Text("Back to main menu")

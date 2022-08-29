@@ -26,12 +26,12 @@ class ScoreGroup : ObservableObject {
         self.isFilled2 = false
         
     }
-    
+    //For reseting the value to prevent refilling as well as free up currentvalue for P2
     func resetGroup() {
         self.isSelectable = false
         self.currentValue = 0
     }
-    
+    //For reseting the value to prepare for the next game
     func resetGroupFull() {
         self.finalValue1 = 0
         self.finalValue2 = 0

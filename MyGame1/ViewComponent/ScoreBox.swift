@@ -7,11 +7,12 @@
 
 import SwiftUI
 
+//View contain the name of the Score group, the points and the button to fill
 struct ScoreBoxView : View  {
-    @State var displayPoint = ""
-    @ObservedObject var scoreBoard : ScoreGroup
-    @Binding var isOpenScoreSheet : Bool
-    @ObservedObject var GameState : GameState
+    @State var displayPoint = "" //use to store the value that will be display
+    @ObservedObject var scoreBoard : ScoreGroup //use to intergrate the scoregroup
+    @Binding var isOpenScoreSheet : Bool //Use to close Score sheet
+    @ObservedObject var GameState : GameState //To check game data
     @State var textColor : Color = .gray
 
     func inputScore(scoreGroup : ScoreGroup) {
@@ -31,11 +32,13 @@ struct ScoreBoxView : View  {
     
     var body: some View {
         HStack (spacing : 0) {
-                //Spacer()
-            Text(scoreBoard.ID).frame(alignment: .leading)
+            //Show name of score group
+            Text(scoreBoard.ID).padding(.leading, 5)
             Spacer(minLength: 100)
+            //Display score, value are updated from diceRoll view
             Text(displayPoint).foregroundColor(textColor).frame(alignment: .trailing)
             Spacer().frame(width: 30)
+            //Button to fill the value, will also reset all necessary value for the next turn
             Button {
                 if (GameState.isP2) {
                     if (!scoreBoard.isFilled2 && isOpenScoreSheet && !GameState.isStart && scoreBoard.isSelectable) {
@@ -60,7 +63,7 @@ struct ScoreBoxView : View  {
                         GameState.resetDiceCounter()
                         scoreBoard.isSelectable = false
                         if (!GameState.is2PlayerMode) {
-                            GameState.turnNumber += 1
+                            GameState.turnNumber += 1// Only update the turn number on Player 2 turn
                         } else {
                             GameState.isP2 = true
                         }
@@ -72,9 +75,9 @@ struct ScoreBoxView : View  {
                 
             } label: {
                 Text("Commit")
-            }.frame(alignment: .trailing).buttonStyle(.bordered)
-            //Spacer()
+            }.padding(.trailing,5).buttonStyle(.bordered)
         }.onAppear {
+            //Logic check for display number, empty for not selectable, gray for slecteable but not filled, black for filled.
             if (GameState.isP2) {
                 if (!scoreBoard.isSelectable && !scoreBoard.isFilled2) {
                     self.displayPoint = ""
